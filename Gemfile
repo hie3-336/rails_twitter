@@ -50,6 +50,9 @@ gem 'bootsnap', require: false
 # devise
 gem 'devise'
 
+# omniauth
+gem 'omniauth'
+
 # Use Sass to process CSS
 # gem "sassc-rails"
 
