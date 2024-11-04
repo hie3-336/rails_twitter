@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  # devise_for :users
 
-  Rails.application.routes.draw do
-    devise_for :users, controllers: {
-      registrations: 'users/registrations'
-    }
-  end
+  # letter_opener_web用
+  mount LetterOpenerWeb::Engine, at: '/letter_opener' if Rails.env.development?
+
+  devise_for :users, controllers: {
+    registrations: 'users/registrations'
+  }
 
   resources :tasks
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
