@@ -53,6 +53,9 @@ gem 'devise'
 # omniauth
 gem 'omniauth'
 
+# dotenv
+gem 'dotenv-rails'
+
 # Use Sass to process CSS
 # gem "sassc-rails"
 
