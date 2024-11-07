@@ -10,7 +10,17 @@
 
   <div class="field">
     <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+    <%= f.email_field :email, autofocus: true, autocomplete: "メールアドレス" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :phone_number %><br />
+    <%= f.text_field :phone_number, autofocus: true, autocomplete: "電話番号" %>
+  </div>
+
+    <div class="field">
+    <%= f.label :birthday %><br />
+    <%= f.text_field :birthday, autofocus: true, autocomplete: "生年月日" %>
   </div>
 
   <div class="field">
