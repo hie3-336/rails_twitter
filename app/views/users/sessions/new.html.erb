@@ -1,3 +1,41 @@
+  
+<%= render partial: 'layouts/twitter_icon' %>
+  
+  <div class="col p-5 my-5 me-5">
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+  
+    <h1 class="h3 mb-5 fw-normal ">ログイン</h1>
+
+    <div class="form-floating mb-4 w-50">
+      <%= f.email_field :email, :class => "form-control" , placeholder: " "%>
+      <%= f.label :email, "メール" %>
+    </div>
+
+    <div class="form-floating mb-4 w-50">
+      <%= f.password_field :password, :class => "form-control" , placeholder: " "%>
+      <%= f.label :password, "パスワード" %>
+    </div>
+
+    <% if devise_mapping.rememberable? %>
+      <div class="form-check my-3">
+        <%= f.check_box :remember_me, :class => "form-check-input"%>
+        <%= f.label :remember_me, :class => "form-check-label"%>
+      </div>
+    <% end %>
+
+    <div>
+      <%= f.submit "ログイン" , :class => "btn btn-primary py-2 w-50"%>
+    </div>
+  <% end %>
+  </div>
+  <%= render "users/shared/links" %>
+</main>
+<script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
+
+<%
+=begin
+%>
+
 <h2>Log in</h2>
 
 <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
@@ -24,3 +62,7 @@
 <% end %>
 
 <%= render "users/shared/links" %>
+
+<%
+=end
+%>

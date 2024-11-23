@@ -51,15 +51,8 @@
 =end
 %>
 
-
+<%= render partial: 'layouts/twitter_icon' %>
     
-<main class="form-signin w-100 m-auto row">
-<%= render "users/shared/error_messages", resource: resource %>
-  <div class="col align-self-center me-5">
-
-    <i class="bi bi-twitter d-flex justify-content-center m"></i>
-
-  </div>
   <%# <div class="col p-5 m-5">
   <form>
     <h1 class="h3 mb-3 fw-normal">アカウントを作成</h1>
@@ -83,47 +76,47 @@
   
   
   <div class="col p-5 my-5 me-5">
-  <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
   
-  <h1 class="h3 mb-5 fw-normal ">アカウントを作成</h1>
+    <h1 class="h3 mb-5 fw-normal ">アカウントを作成</h1>
 
-  <div class="form-floating mb-4 w-50">
-    <%= f.text_field :name , :class => "form-control" , placeholder: " "%>
-    <%= f.label :name, "名前" %>
-  </div>
+    <div class="form-floating mb-4 w-50">
+      <%= f.text_field :name , :class => "form-control" , placeholder: " "%>
+      <%= f.label :name, "名前" %>
+    </div>
 
-  <div class="form-floating mb-4 w-50">
-    <%= f.email_field :email, :class => "form-control" , placeholder: " "%>
-    <%= f.label :email, "メール" %>
-  </div>
+    <div class="form-floating mb-4 w-50">
+      <%= f.email_field :email, :class => "form-control" , placeholder: " "%>
+      <%= f.label :email, "メール" %>
+    </div>
 
-  <div class="form-floating mb-4 w-50">
-    <%= f.text_field :phone_number, :class => "form-control" , placeholder: " "%>
-    <%= f.label :phone_number, "電話番号" %>
-  </div>
+    <div class="form-floating mb-4 w-50">
+      <%= f.text_field :phone_number, :class => "form-control" , placeholder: " "%>
+      <%= f.label :phone_number, "電話番号" %>
+    </div>
 
-  <div class="form-floating mb-4 w-50">
-    <%= f.date_field :birthday, :class => "form-control" , placeholder: " "%>
-    <%= f.label :birthday, "生年月日" %>
-  </div>
+    <div class="form-floating mb-4 w-50">
+      <%= f.text_field :birthday, :class => "form-control" , placeholder: " " %>
+      <%= f.label :birthday, "生年月日" %>
+    </div>
 
-  <div class="form-floating mb-4 w-50">
-    <%= f.password_field :password, :class => "form-control" , placeholder: " "%>
-    <%= f.label :password, "パスワード" %>
-    <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> 文字以上入力してください)</em>
-    <% end %>
-  </div>
+    <div class="form-floating mb-4 w-50">
+      <%= f.password_field :password, :class => "form-control" , placeholder: " "%>
+      <%= f.label :password, "パスワード" %>
+      <% if @minimum_password_length %>
+      (<%= @minimum_password_length %> 文字以上入力してください)
+      <% end %>
+    </div>
 
-  <div class="form-floating mb-4 w-50">
-    <%= f.password_field :password_confirmation, :class => "form-control" , placeholder: " "%>
-    <%= f.label :password_confirmation, "パスワード(確認)" %>
-  </div>
+    <div class="form-floating mb-4 w-50">
+      <%= f.password_field :password_confirmation, :class => "form-control" , placeholder: " "%>
+      <%= f.label :password_confirmation, "パスワード(確認)" %>
+    </div>
 
-  <div>
-    <%= f.submit "Sign up" , :class => "btn btn-primary py-2 w-50"%>
-  </div>
-<% end %>
+    <div>
+      <%= f.submit "Sign up" , :class => "btn btn-primary py-2 w-50"%>
+    </div>
+  <% end %>
   </div>
 </main>
 <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
