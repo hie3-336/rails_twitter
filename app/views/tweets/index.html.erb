@@ -59,13 +59,19 @@
               </ul>
             </div>
             <div class="dropdown mt-auto ">
-              <a href="#" class="d-flex align-items-center link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                <img src="https://placehold.jp/100x100.png" alt="" width="32" height="32" class="rounded-circle me-2">
-                <strong><%= @user.name %></strong>
-              </a>
-              <ul class="dropdown-menu text-small shadow">
-                <li><a class="dropdown-item" href="#">プロフィール</a></li>
-              </ul>
+              <% if user_signed_in? %>
+                <a href="#" class="d-flex align-items-center link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                  <img src="https://placehold.jp/100x100.png" alt="" width="32" height="32" class="rounded-circle me-2">
+                  <strong><%= @user.name %></strong>
+                </a>
+                <ul class="dropdown-menu text-small shadow">
+                  <li><a class="dropdown-item" href="#">プロフィール</a></li>
+                </ul>
+              <% else %>
+                <div class="fs-5">
+                  ゲスト
+                </div>
+              <% end %>
             </div>
           </div>
         </div>
