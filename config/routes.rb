@@ -9,6 +9,8 @@ Rails.application.routes.draw do
     registrations: 'users/registrations'
   }
 
+  resources :tweets, only: %i[index]
+
   resources :tasks
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

@@ -14,11 +14,11 @@
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
   </head>
-    <%# 仮 %>
-    <%
+  <%# 仮 %>
+  <%
 =begin
 %>
-    <header>
+  <header>
     <% if user_signed_in? %>
       <li>
         <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
@@ -35,7 +35,6 @@
   <%
 =end
 %>
-
   <body>
     <%= render "layouts/flash_messages" %>
     <%= yield %>
