@@ -59,6 +59,10 @@ gem 'dotenv-rails'
 # Use Sass to process CSS
 gem "sassc-rails"
 
+# slim
+gem "slim-rails"
+gem 'html2slim-ruby3'
+
 # メッセージ日本語化
 gem 'rails-i18n'
 gem 'devise-i18n'

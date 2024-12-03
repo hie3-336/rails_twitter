@@ -129,6 +129,9 @@ GEM
     globalid (1.1.0)
       activesupport (>= 5.0)
     hashie (5.0.0)
+    hpricot (0.8.6)
+    html2slim-ruby3 (0.2.1)
+      hpricot
     htmlbeautifier (1.4.2)
     i18n (1.14.1)
       concurrent-ruby (~> 1.0)
@@ -307,6 +310,13 @@ GEM
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
     sexp_processor (4.17.0)
+    slim (5.2.1)
+      temple (~> 0.10.0)
+      tilt (>= 2.1.0)
+    slim-rails (3.6.3)
+      actionpack (>= 3.1)
+      railties (>= 3.1)
+      slim (>= 3.0, < 6.0, != 5.0.0)
     sprockets (4.2.0)
       concurrent-ruby (~> 1.0)
       rack (>= 2.2.4, < 4)
@@ -316,6 +326,7 @@ GEM
       sprockets (>= 3.0.0)
     stimulus-rails (1.2.1)
       railties (>= 6.0.0)
+    temple (0.10.3)
     thor (1.2.2)
     tilt (2.4.0)
     timeout (0.4.0)
@@ -359,6 +370,7 @@ DEPENDENCIES
   devise-i18n-views
   dotenv-rails
   factory_bot_rails
+  html2slim-ruby3
   htmlbeautifier
   jbuilder
   jsbundling-rails
@@ -376,6 +388,7 @@ DEPENDENCIES
   rubocop-rspec
   sassc-rails
   selenium-webdriver
+  slim-rails
   sprockets-rails
   stimulus-rails
   turbo-rails

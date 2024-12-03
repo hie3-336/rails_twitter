@@ -1,91 +1,85 @@
 <div class="" style="height: 100vh;">
-<div class="d-flex justify-content-center w-100">
-  <main class="d-flex flex-nowrap flex-column">
-    <%# <div class="b-example-divider b-example-vr"></div> %>
-
-    <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom w-100">
-      <div class="d-flex nav-link fs-3 align-items-center">
-        <i class="bi bi-twitter mx-3"></i>
-        <a >Hietter</a>
-      </div>
-      <div class="col-md-3 mb-2 mb-md-0">
-        <a href="/" class="d-inline-flex link-body-emphasis text-decoration-none">
-          <svg class="bi" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"/></svg>
-        </a>
-      </div>
-
-      <div class="col-md-3 text-end">
-        <% if user_signed_in? %>
-          <%= link_to "ログアウト", destroy_user_session_path, class: "btn btn-outline-primary me-2" , data: { turbo_method: :delete } %>
-        <% else %>
-          <%= link_to "ログイン", new_user_session_path, class: "btn btn-outline-primary me-2" %>
-          <%= link_to "新規登録", new_user_registration_path, class: "btn btn-primary" %>
-        <% end %>
-      </div>
-    </header>
-
-    <div class="hstack gap-2" >
-      <div class="p-1">
-        <div class="d-flex flex-column align-items-start flex-shrink-0 p-3 bg-body-tertiary" style="width: 260px; height: calc(100vh - 100px)">
-          <div class="">
-            <ul class="nav nav-pills navbar-nav flex-column gap-0 row-gap-3">
-              <li>
-                <div class="d-flex nav-link fs-4 align-items-center">
-                  <i class="bi bi-house me-2"></i>
-                  ホーム
-                </div>
-              </li>
-              <li>
-                <a href="#" class="d-flex nav-link link-body-emphasis fs-4 align-items-center">
-                  <i class="bi bi-bell me-2"></i>
-                  通知
-                </a>
-              </li>
-              <li>
-                <a href="#" class="d-flex nav-link link-body-emphasis fs-4 align-items-center">
-                  <i class="bi bi-envelope me-2"></i>
-                  メッセージ
-                </a>
-              </li>
-              <li>
+  <div class="d-flex justify-content-center w-100">
+    <main class="d-flex flex-nowrap flex-column">
+      <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom w-100">
+        <div class="d-flex nav-link fs-3 align-items-center">
+          <i class="bi bi-twitter mx-3"></i>
+          <a >Hietter</a>
+        </div>
+        <div class="col-md-3 mb-2 mb-md-0">
+          <a href="/" class="d-inline-flex link-body-emphasis text-decoration-none">
+            <svg class="bi" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"/></svg>
+          </a>
+        </div>
+        <div class="col-md-3 text-end">
+          <% if user_signed_in? %>
+            <%= link_to "ログアウト", destroy_user_session_path, class: "btn btn-outline-primary me-2" , data: { turbo_method: :delete } %>
+          <% else %>
+            <%= link_to "ログイン", new_user_session_path, class: "btn btn-outline-primary me-2" %>
+            <%= link_to "新規登録", new_user_registration_path, class: "btn btn-primary" %>
+          <% end %>
+        </div>
+      </header>
+      <div class="hstack gap-2" >
+        <div class="p-1">
+          <div class="d-flex flex-column align-items-start flex-shrink-0 p-3 bg-body-tertiary" style="width: 260px; height: calc(100vh - 100px)">
+            <div class="">
+              <ul class="nav nav-pills navbar-nav flex-column gap-0 row-gap-3">
+                <li>
+                  <div class="d-flex nav-link fs-4 align-items-center">
+                    <i class="bi bi-house me-2"></i>
+                    ホーム
+                  </div>
+                </li>
                 <li>
                   <a href="#" class="d-flex nav-link link-body-emphasis fs-4 align-items-center">
-                    <i class="bi bi-person me-2"></i>
-                    プロフィール
+                    <i class="bi bi-bell me-2"></i>
+                    通知
                   </a>
                 </li>
                 <li>
                   <a href="#" class="d-flex nav-link link-body-emphasis fs-4 align-items-center">
-                    <i class="bi bi-gear me-2"></i>
-                    設定
+                    <i class="bi bi-envelope me-2"></i>
+                    メッセージ
                   </a>
                 </li>
-              </ul>
-            </div>
-            <div class="dropdown mt-auto ">
-              <% if user_signed_in? %>
-                <a href="#" class="d-flex align-items-center link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                  <img src="https://placehold.jp/100x100.png" alt="" width="32" height="32" class="rounded-circle me-2">
-                  <strong><%= @user.name %></strong>
-                </a>
-                <ul class="dropdown-menu text-small shadow">
-                  <li><a class="dropdown-item" href="#">プロフィール</a></li>
+                <li>
+                  <li>
+                    <a href="#" class="d-flex nav-link link-body-emphasis fs-4 align-items-center">
+                      <i class="bi bi-person me-2"></i>
+                      プロフィール
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#" class="d-flex nav-link link-body-emphasis fs-4 align-items-center">
+                      <i class="bi bi-gear me-2"></i>
+                      設定
+                    </a>
+                  </li>
                 </ul>
-              <% else %>
-                <div class="fs-5">
-                  ゲスト
-                </div>
-              <% end %>
+              </div>
+              <div class="dropdown mt-auto ">
+                <% if user_signed_in? %>
+                  <a href="#" class="d-flex align-items-center link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                    <img src="https://placehold.jp/100x100.png" alt="" width="32" height="32" class="rounded-circle me-2">
+                    <strong><%= @user.name %></strong>
+                  </a>
+                  <ul class="dropdown-menu text-small shadow">
+                    <li><a class="dropdown-item" href="#">プロフィール</a></li>
+                  </ul>
+                <% else %>
+                  <div class="fs-5">
+                    ゲスト
+                  </div>
+                <% end %>
+              </div>
             </div>
           </div>
+          <div class="vr"></div>
+          <div class="p-2" style="width: 720px;">
+            tweet
+          </div>
         </div>
-
-        <div class="vr"></div>
-
-        <div class="p-2" style="width: 720px;">
-          tweet
-        </div>
-      </div>
-    </main>
-  </div>
+      </main>
+    </div>
   </div>
