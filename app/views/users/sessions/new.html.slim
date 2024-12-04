@@ -1,0 +1,22 @@
+.form-signin.w-100.m-auto.row
+  = render "users/shared/error_messages", resource: resource
+  .col.align-self-center.me-5
+    i.bi.bi-twitter.d-flex.justify-content-center.m[style="font-size: 300px;"]
+  .col.p-5.my-5.me-5
+    = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+      h1.h3.mb-5.fw-normal
+        | ログイン
+      .form-floating.mb-4.w-50
+        = f.email_field :email, :class => "form-control" , placeholder: " "
+        = f.label :email, "メール"
+      .form-floating.mb-4.w-50
+        = f.password_field :password, :class => "form-control" , placeholder: " "
+        = f.label :password, "パスワード"
+      - if devise_mapping.rememberable?
+        .form-check.my-3
+          = f.check_box :remember_me, :class => "form-check-input"
+          = f.label :remember_me, :class => "form-check-label"
+      div
+        = f.submit "ログイン" , :class => "btn btn-primary py-2 w-50"
+    = render "users/shared/links"
+  script[src="../assets/dist/js/bootstrap.bundle.min.js"]
