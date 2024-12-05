@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
@@ -9,6 +11,4 @@ class User < ApplicationRecord
   validates :birthday, presence: true
 
   has_many :tweets, dependent: :destroy
-
-  
 end
