@@ -47,8 +47,26 @@ gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', require: false
 
+# devise
+gem 'devise'
+
+# omniauth
+gem 'omniauth'
+
+# dotenv
+gem 'dotenv-rails'
+
 # Use Sass to process CSS
-# gem "sassc-rails"
+gem 'sassc-rails'
+
+# slim
+gem 'html2slim-ruby3'
+gem 'slim-rails'
+
+# メッセージ日本語化
+gem 'devise-i18n'
+gem 'devise-i18n-views'
+gem 'rails-i18n'
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
@@ -69,6 +87,9 @@ group :development do
   gem 'rubocop-rails', require: false
   gem 'rubocop-rspec', require: false
   gem 'web-console'
+
+  # メールテスト用
+  gem 'letter_opener_web'
 
   # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
   # gem "rack-mini-profiler"

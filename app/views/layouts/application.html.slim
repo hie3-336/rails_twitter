@@ -1,0 +1,16 @@
+doctype html
+html
+  head
+    title
+      | Myapp
+    meta[name="viewport" content="width=device-width,initial-scale=1"]
+    link[rel="icon" type="image/x-icon" href="assets/favicon.ico"]
+    link[href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet"]
+    link[href="css/styles.css" rel="stylesheet"]
+    = csrf_meta_tags
+    = csp_meta_tag
+    = stylesheet_link_tag "application", "data-turbo-track": "reload"
+    = javascript_include_tag "application", "data-turbo-track": "reload", defer: true
+  body
+    = render "layouts/flash_messages"
+    = yield
