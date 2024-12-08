@@ -19,8 +19,8 @@ class User < ApplicationRecord
       user.email = auth.info.email
       user.password = Devise.friendly_token[0, 20]
       user.name = auth.info.name
-      user.telephone_number = '08000000000'
-      user.date_of_birth = '1993-01-01'
+      user.phone_number = '08000000000'
+      user.birthday = '1993-01-01'
 
       if user.persisted? || auth.provider == 'github'
         user.skip_confirmation! if auth.provider == 'github'
@@ -28,7 +28,7 @@ class User < ApplicationRecord
       end
     end
   end
-  
+
 
   def self.create_unique_string
     SecureRandom.uuid

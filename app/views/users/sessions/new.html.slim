@@ -19,6 +19,8 @@
       div
         = f.submit "ログイン" , :class => "btn btn-primary py-2 w-50"
     
-    = link_to "githubによるログイン", user_github_omniauth_authorize_path ,class: "btn btn-outline-primary me-2 mt-4"
+    = link_to user_github_omniauth_authorize_path, class: "btn btn-primary me-2 mt-4 w-50", method: :post, data: { turbo: false } do
+      i.bi.bi-github.me-2
+      | GitHubでログイン
     = render "users/shared/links"
   script[src="../assets/dist/js/bootstrap.bundle.min.js"]
