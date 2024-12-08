@@ -1,0 +1,14 @@
+= render partial: 'layouts/twitter_icon'
+.col.p-5.my-5.me-5
+  h2
+    | パスワードのリセット
+  p
+    | 登録したメールアドレスを入力してください
+  = form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f|
+    = render "users/shared/error_messages", resource: resource
+    .form-floating.mb-4.w-50
+      = f.email_field :email, :class => "form-control" , placeholder: " "
+      = f.label :email, "メール"
+    .actions
+      = f.submit "パスワードリセットメールを送信" ,:class => "btn btn-primary py-2 w-50"
+  = render "users/shared/links"
