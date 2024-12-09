@@ -29,9 +29,7 @@ class User < ApplicationRecord
     end
   end
 
-
   def self.create_unique_string
     SecureRandom.uuid
   end
-
 end

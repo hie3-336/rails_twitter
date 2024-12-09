@@ -2,7 +2,6 @@
 
 module Users
   class OmniauthCallbacksController < Devise::OmniauthCallbacksController
-
     # You should configure your model like this:
     # devise :omniauthable, omniauth_providers: [:twitter]
 
@@ -47,6 +46,5 @@ module Users
     def failure
       redirect_to root_path
     end
-
   end
 end
