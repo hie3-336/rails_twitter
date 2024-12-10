@@ -17,6 +17,7 @@ Metrics/BlockLength:
     - config/environments/*.rb
     - config/routes.rb
 Layout/LineLength:
+  Max: 150
   Exclude:
     - config/initializers/devise.rb
     - db/migrate/*.rb

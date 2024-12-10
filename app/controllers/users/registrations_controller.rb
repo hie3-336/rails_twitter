@@ -68,5 +68,18 @@ module Users
     def after_inactive_sign_up_path_for(_resource)
       tweets_path
     end
+
+    # hashをもとにresourceの新しいインスタンスを作る
+    def build_resource(hash = {})
+      hash[:uid] = User.create_unique_string
+      super
+    end
+
+    # パスワードを変更する場合のみ本家メソッドを呼び、パスワードの変更を伴わない場合は、パスワードなしで更新できるように
+    def update_resource(resource, params)
+      return super if params['password'].present?
+
+      resource.update_without_password(params.except('current_password'))
+    end
   end
 end
