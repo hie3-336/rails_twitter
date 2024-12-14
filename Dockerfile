@@ -11,6 +11,7 @@ RUN ln -fs /usr/local/lib/node_modules/npm/bin/npm-cli.js /usr/local/bin/npm \
 RUN apt-get update -qq && \
   apt-get install -y build-essential \
   libpq-dev \
+  vim \
   postgresql-client \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
