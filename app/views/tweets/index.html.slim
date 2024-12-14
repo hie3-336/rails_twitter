@@ -13,7 +13,7 @@ div[style="height: 100vh;"]
           - else
             = link_to "ログイン", new_user_session_path, class: "btn btn-outline-primary me-2"
             = link_to "新規登録", new_user_registration_path, class: "btn btn-primary"
-      .hstack.gap-2
+      .hstack
         .p-1.border-end
           .d-flex.flex-column.align-items-start.flex-shrink-0.p-3.bg-body-tertiary[style="width: 260px; height: calc(100vh - 100px);"]
             ul.nav.nav-pills.navbar-nav.flex-column.gap-0.row-gap-3
@@ -41,7 +41,7 @@ div[style="height: 100vh;"]
               - if user_signed_in?
                 a.d-flex.align-items-center.link-body-emphasis.text-decoration-none.dropdown-toggle[href="#" data-bs-toggle="dropdown" aria-expanded="false"]
 
-                  img.rounded-circle.me-2[src="https://placehold.jp/100x100.png" alt="" width="32" height="32"]
+                  img.rounded-circle.me-2[src="https://placehold.jp/100x100.png" alt="" width="48" height="48"]
                   strong
                   = @user.name
                 ul.dropdown-menu.text-small.shadow
@@ -52,13 +52,57 @@ div[style="height: 100vh;"]
                 .fs-5
                   |  ゲスト
 
-        .p-2.h-100[style="width: 720px;"]
-          .p-2[style="width: 660px;"]
-            ul.nav.nav-underline
-              li.nav-item
+        .h-100.border-end
+          .border-bottom[style="width: 560px;"]
+            ul.nav.nav-underline.justify-content-center.border-bottom
+              li.nav-item.w-50.text-center
                 a.nav-link.active
-                  |  Active
-              li.nav-item
+                  |  おすすめ
+              li.nav-item.w-50.text-center
                 a.nav-link
-                  |  Link
+                  |  フォロー中
+            .hstack.m-2.border-bottom
+              .mb-auto.d-flex
+                img.rounded-circle.me-2[src="https://placehold.jp/100x100.png" alt="" width="48" height="48"]
+              .vstack
+                textarea.form-control.border-0[rows="5"]
+                ul.nav.fs-4.ms-3.mt-2.mb-2
+                  li.nav-item
+                    i.bi.bi-card-image
+                  = link_to "ツイートする", new_user_registration_path, class: "btn btn-primary ms-auto"
+            .hstack.m-2
+              .mb-auto.d-flex
+                img.rounded-circle.me-2[src="https://placehold.jp/100x100.png" alt="" width="48" height="48"]
+              .vstack
+                .fw-bold
+                  |  @テストユーザー
+                |  テストテストテストテストテストテストテストテストテストテストテストテストテストテストテストテストテストテストテストテストテストテストテストテストテストテスト
+                ul.nav.fs-6.ms-3.mt-2.d-flex.justify-content-between.w-50
+                  li.nav-item
+                    i.bi.bi-chat
+                  li.nav-item
+                    i.bi.bi-arrow-repeat
+                  li.nav-item
+                    i.bi.bi-heart
+
+            .hstack.m-2
+              .mb-auto.d-flex
+                img.rounded-circle.me-2[src="https://placehold.jp/100x100.png" alt="" width="48" height="48"]
+              .vstack
+                .fw-bold
+                  |  @テストユーザー
+                |  テストテストテストテストテストテストテストテストテストテストテストテストテストテストテストテストテストテストテストテストテストテストテストテストテストテスト
+                ul.nav.fs-6.ms-3.mt-2.d-flex.justify-content-between.w-50
+                  li.nav-item
+                    i.bi.bi-chat
+                  li.nav-item
+                    i.bi.bi-arrow-repeat
+                  li.nav-item
+                    i.bi.bi-heart
+
+
+        .h-100
+          .border-start[style="width: 260px;"]
+
+              
 
