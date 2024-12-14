@@ -52,6 +52,8 @@ gem 'devise'
 
 # omniauth
 gem 'omniauth'
+gem 'omniauth-github'
+gem 'omniauth-rails_csrf_protection'
 
 # dotenv
 gem 'dotenv-rails'
@@ -67,6 +69,10 @@ gem 'slim-rails'
 gem 'devise-i18n'
 gem 'devise-i18n-views'
 gem 'rails-i18n'
+
+# デバッグ
+gem 'pry-byebug'
+gem 'pry-rails'
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
