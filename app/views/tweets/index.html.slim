@@ -79,7 +79,8 @@ div[style="height: 100vh;"]
                   .fw-bold
                     = tweet.user_id
                   = tweet.tweet_text
-                  = image_tag tweet.image.representation(resize_to_fill: [300, 200])
+                  - if tweet.image.present?
+                    = image_tag tweet.image.representation(resize_to_fill: [300, 200])
                   ul.nav.fs-6.ms-3.mt-2.d-flex.justify-content-between.w-50
                     li.nav-item
                       i.bi.bi-chat

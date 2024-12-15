@@ -1,4 +1,4 @@
-name,email,encrypted_password,phone_number,birthday
+name,email,password,phone_number,birthday
 Testuser1,testmail1@test.com,password,9000000000,1/1
 Testuser2,testmail2@test.com,password,9000000000,1/1
 Testuser3,testmail3@test.com,password,9000000000,1/1
