@@ -12,6 +12,7 @@ RUN apt-get update -qq && \
   apt-get install -y build-essential \
   libpq-dev \
   vim \
+  libvips42 \
   postgresql-client \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*

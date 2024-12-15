@@ -70,20 +70,23 @@ div[style="height: 100vh;"]
                   li.nav-item
                     i.bi.bi-card-image
                   = link_to "ツイートする", new_user_registration_path, class: "btn btn-primary ms-auto"
-            .hstack.m-2
-              .mb-auto.d-flex
-                img.rounded-circle.me-2[src="https://placehold.jp/100x100.png" alt="" width="48" height="48"]
-              .vstack
-                .fw-bold
-                  |  @テストユーザー
-                |  テストテストテストテストテストテストテストテストテストテストテストテストテストテストテストテストテストテストテストテストテストテストテストテストテストテスト
-                ul.nav.fs-6.ms-3.mt-2.d-flex.justify-content-between.w-50
-                  li.nav-item
-                    i.bi.bi-chat
-                  li.nav-item
-                    i.bi.bi-arrow-repeat
-                  li.nav-item
-                    i.bi.bi-heart
+            
+            - @tweets.each do |tweet|
+              .hstack.m-2
+                .mb-auto.d-flex
+                  img.rounded-circle.me-2[src="https://placehold.jp/100x100.png" alt="" width="48" height="48"]
+                .vstack
+                  .fw-bold
+                    = tweet.user_id
+                  = tweet.tweet_text
+                  = image_tag tweet.image.representation(resize_to_fill: [300, 200])
+                  ul.nav.fs-6.ms-3.mt-2.d-flex.justify-content-between.w-50
+                    li.nav-item
+                      i.bi.bi-chat
+                    li.nav-item
+                      i.bi.bi-arrow-repeat
+                    li.nav-item
+                      i.bi.bi-heart
 
             .hstack.m-2
               .mb-auto.d-flex

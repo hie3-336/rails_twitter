@@ -3,6 +3,6 @@
 class TweetsController < ApplicationController
   def index
     @user = current_user
-    @tweet = Tweet.all
+    @tweets = Tweet.with_attached_image
   end
 end
