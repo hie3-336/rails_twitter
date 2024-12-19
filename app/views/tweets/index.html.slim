@@ -56,11 +56,14 @@ div[style="height: 100vh; max-height: 1000px;"]
           .border-bottom[style="width: 560px;"]
             ul.nav.nav-underline.justify-content-center.border-bottom
               li.nav-item.w-50.text-center
-                a.nav-link.active
-                  |  おすすめ
+                .nav-link
+                  div class="#{'active' if params[:tab] == 'recommend'} text-center hover-bg" type="button" data-bs-toggle="tab" data-bs-target="#for-you"
+                    = link_to 'おすすめ', root_path(tab: 'recommend'), class: 'link'
+
               li.nav-item.w-50.text-center
-                a.nav-link
-                  |  フォロー中
+                .nav-link
+                  div class="#{'active' if params[:tab] == 'follow'} text-center hover-bg" type="button" data-bs-toggle="tab" data-bs-target="#following"
+                    = link_to 'フォロー中', root_path(tab: 'follow'), class: 'link'
             .hstack.m-2.border-bottom
               .mb-auto.d-flex
                 img.rounded-circle.me-2[src="https://placehold.jp/100x100.png" alt="" width="48" height="48"]
@@ -71,23 +74,44 @@ div[style="height: 100vh; max-height: 1000px;"]
                     i.bi.bi-card-image
                   = link_to "ツイートする", new_user_registration_path, class: "btn btn-primary ms-auto"
             .overflow-auto[style="height: calc(70vh - 100px);"]
-              - @tweets.each do |tweet|
-                .hstack.m-2
-                  .mb-auto.d-flex
-                    img.rounded-circle.me-2[src="https://placehold.jp/100x100.png" alt="" width="48" height="48"]
-                  .vstack
-                    .fw-bold
-                      = tweet.user_id
-                    = tweet.tweet_text
-                    - if tweet.image.present?
-                      = image_tag tweet.image.representation(resize_to_fill: [300, 200])
-                    ul.nav.fs-6.ms-3.mt-2.d-flex.justify-content-between.w-50
-                      li.nav-item
-                        i.bi.bi-chat
-                      li.nav-item
-                        i.bi.bi-arrow-repeat
-                      li.nav-item
-                        i.bi.bi-heart
+              .tab-content
+                div class="#{'show active' if params[:tab] == 'recommend'} tab-pane fade " id="for-you"
+                  - @tweets.each do |tweet|
+                    |  aaaaaaa
+                    .hstack.m-2
+                      .mb-auto.d-flex
+                        img.rounded-circle.me-2[src="https://placehold.jp/100x100.png" alt="" width="48" height="48"]
+                      .vstack
+                        .fw-bold
+                          = tweet.user_id
+                        = tweet.tweet_text
+                        - if tweet.image.present?
+                          = image_tag tweet.image.representation(resize_to_fill: [300, 200])
+                        ul.nav.fs-6.ms-3.mt-2.d-flex.justify-content-between.w-50
+                          li.nav-item
+                            i.bi.bi-chat
+                          li.nav-item
+                            i.bi.bi-arrow-repeat
+                          li.nav-item
+                            i.bi.bi-heart
+                div class="#{'show active' if params[:tab] == 'follow'} tab-pane fade " id="following"
+                  - @tweets.each do |tweet|
+                    .hstack.m-2
+                      .mb-auto.d-flex
+                        img.rounded-circle.me-2[src="https://placehold.jp/100x100.png" alt="" width="48" height="48"]
+                      .vstack
+                        .fw-bold
+                          = tweet.user_id
+                        = tweet.tweet_text
+                        - if tweet.image.present?
+                          = image_tag tweet.image.representation(resize_to_fill: [300, 200])
+                        ul.nav.fs-6.ms-3.mt-2.d-flex.justify-content-between.w-50
+                          li.nav-item
+                            i.bi.bi-chat
+                          li.nav-item
+                            i.bi.bi-arrow-repeat
+                          li.nav-item
+                            i.bi.bi-heart
           = paginate @tweets, theme: 'bootstrap-5'
 
         .h-100
