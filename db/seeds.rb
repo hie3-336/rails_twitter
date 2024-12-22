@@ -32,6 +32,15 @@ CSV.foreach('db/seeds/tweet_seed.csv', headers: true) do |row|
 	tweet.save!
 end
 
+CSV.foreach('db/seeds/follower_seed.csv', headers: true) do |row|
+  follower = Follower.create(
+    follower_id: row['follower_id'],
+    followed_id: row['followed_id'],
+  )
+
+	follower.save!
+end
+
 # 単一登録用
 # user = User.create(name: 'テストユーザー', email: 'test@testtest.com', password: 'password', phone_number: '08000000000', birthday: '1993-11-10')
 # user.save!
