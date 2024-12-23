@@ -77,7 +77,6 @@ div[style="height: 100vh; max-height: 1000px;"]
               .tab-content
                 div class="#{'show active' if params[:tab] == 'recommend'} tab-pane fade " id="for-you"
                   - @tweets.each do |tweet|
-                    |  aaaaaaa
                     .hstack.m-2
                       .mb-auto.d-flex
                         img.rounded-circle.me-2[src="https://placehold.jp/100x100.png" alt="" width="48" height="48"]
@@ -95,23 +94,27 @@ div[style="height: 100vh; max-height: 1000px;"]
                           li.nav-item
                             i.bi.bi-heart
                 div class="#{'show active' if params[:tab] == 'follow'} tab-pane fade " id="following"
-                  - @tweets.each do |tweet|
-                    .hstack.m-2
-                      .mb-auto.d-flex
-                        img.rounded-circle.me-2[src="https://placehold.jp/100x100.png" alt="" width="48" height="48"]
-                      .vstack
-                        .fw-bold
-                          = tweet.user_id
-                        = tweet.tweet_text
-                        - if tweet.image.present?
-                          = image_tag tweet.image.representation(resize_to_fill: [300, 200])
-                        ul.nav.fs-6.ms-3.mt-2.d-flex.justify-content-between.w-50
-                          li.nav-item
-                            i.bi.bi-chat
-                          li.nav-item
-                            i.bi.bi-arrow-repeat
-                          li.nav-item
-                            i.bi.bi-heart
+                  - if user_signed_in?
+                    - @following_tweets.each do |tweet|
+                      .hstack.m-2
+                        .mb-auto.d-flex
+                          img.rounded-circle.me-2[src="https://placehold.jp/100x100.png" alt="" width="48" height="48"]
+                        .vstack
+                          .fw-bold
+                            = tweet.user_id
+                          = tweet.tweet_text
+                          - if tweet.image.present?
+                            = image_tag tweet.image.representation(resize_to_fill: [300, 200])
+                          ul.nav.fs-6.ms-3.mt-2.d-flex.justify-content-between.w-50
+                            li.nav-item
+                              i.bi.bi-chat
+                            li.nav-item
+                              i.bi.bi-arrow-repeat
+                            li.nav-item
+                              i.bi.bi-heart
+                  - else
+                    .border.border-5.text-center.m-5
+                      |  こちらのツイートを表示するためには、<br>まずはログインをしてください！
           = paginate @tweets, theme: 'bootstrap-5'
 
         .h-100
