@@ -105,6 +105,9 @@ group :development do
   # メールテスト用
   gem 'letter_opener_web'
 
+  # N+1検知
+  gem 'bullet'
+
   # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
   # gem "rack-mini-profiler"
 
