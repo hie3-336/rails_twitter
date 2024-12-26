@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
 #
@@ -23,22 +24,20 @@ end
 CSV.foreach('db/seeds/tweet_seed.csv', headers: true) do |row|
   tweet = Tweet.create(
     user_id: row['user_id'],
-    tweet_text: row['tweet_text'],
+    tweet_text: row['tweet_text']
   )
-	if row['filename'].present?
-		tweet.image.attach(io: File.open("db/testimage/#{row['filename']}.jpg"), filename: "#{row['filename']}.png")
-	end
+  tweet.image.attach(io: File.open("db/testimage/#{row['filename']}.jpg"), filename: "#{row['filename']}.png") if row['filename'].present?
 
-	tweet.save!
+  tweet.save!
 end
 
 CSV.foreach('db/seeds/follower_seed.csv', headers: true) do |row|
   follower = Follower.create(
     follower_id: row['follower_id'],
-    followed_id: row['followed_id'],
+    followed_id: row['followed_id']
   )
 
-	follower.save!
+  follower.save!
 end
 
 # 単一登録用
