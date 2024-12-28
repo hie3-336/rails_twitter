@@ -17,7 +17,7 @@ CSV.foreach('db/seeds/user_seed.csv', headers: true) do |row|
     password: row['password'],
     phone_number: row['phone_number'],
     birthday: row['birthday'],
-		confirmed_at: Time.now
+    confirmed_at: Time.zone.now
   )
   user.save!
 end
