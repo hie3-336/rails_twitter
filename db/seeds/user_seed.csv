@@ -1,0 +1,11 @@
+name,email,password,phone_number,birthday
+Testuser1,testmail1@test.com,password,9000000000,1/1
+Testuser2,testmail2@test.com,password,9000000000,1/1
+Testuser3,testmail3@test.com,password,9000000000,1/1
+Testuser4,testmail4@test.com,password,9000000000,1/1
+Testuser5,testmail5@test.com,password,9000000000,1/1
+Testuser6,testmail6@test.com,password,9000000000,1/1
+Testuser7,testmail7@test.com,password,9000000000,1/1
+Testuser8,testmail8@test.com,password,9000000000,1/1
+Testuser9,testmail9@test.com,password,9000000000,1/1
+Testuser10,testmail10@test.com,password,9000000000,1/1
