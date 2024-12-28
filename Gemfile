@@ -70,12 +70,19 @@ gem 'devise-i18n'
 gem 'devise-i18n-views'
 gem 'rails-i18n'
 
+# Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
+gem 'image_processing', '~> 1.2'
+
+# Active storage S3アップロード用
+gem 'aws-sdk-s3', '~> 1.2'
+
+# ページネーション
+gem 'bootstrap5-kaminari-views', '~> 0.0.1'
+gem 'kaminari', '~> 1.2.1'
+
 # デバッグ
 gem 'pry-byebug'
 gem 'pry-rails'
-
-# Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
-# gem "image_processing", "~> 1.2"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
@@ -96,6 +103,9 @@ group :development do
 
   # メールテスト用
   gem 'letter_opener_web'
+
+  # N+1検知
+  gem 'bullet'
 
   # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
   # gem "rack-mini-profiler"
