@@ -24,7 +24,7 @@ class User < ApplicationRecord
   has_many :followers, through: :passive_relationships, source: :follower
 
   def to_param
-    user
+    name
   end
 
   def self.from_omniauth(auth)
