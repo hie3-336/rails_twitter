@@ -116,8 +116,14 @@ div[style="height: 100vh; max-height: 1000px;"]
                     .border.border-5.text-center.m-5
                       |  こちらのツイートを表示するためには、<br>まずはログインをしてください！
 
-          .p-1.d-flex.align-items-center.sticky-bottom
-            = paginate @tweets, theme: 'bootstrap-5'
+          div class="#{'show active' if params[:tab] == 'recommend'} tab-pane fade " id="for-you"
+            .p-1.d-flex.align-items-center.sticky-bottom
+              = paginate @tweets, theme: 'bootstrap-5'
+          - if user_signed_in?
+            div class="#{'show active' if params[:tab] == 'follow'} tab-pane fade " id="following"
+              .p-1.d-flex.align-items-center.sticky-bottom
+                = paginate @following_tweets, theme: 'bootstrap-5'
+
 
         .h-100
           .border-start[style="width: 260px;"]
