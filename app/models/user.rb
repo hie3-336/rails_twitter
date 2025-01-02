@@ -17,6 +17,11 @@ class User < ApplicationRecord
 
   has_many :tweets, dependent: :destroy
 
+  # throughの使い方自信ない
+  has_many :tweets, through: :likes
+  has_many :tweets, through: :retweets
+  has_many :tweets, through: :comments
+
   has_many :active_relationships, class_name: 'Follower', foreign_key: 'follower_id', dependent: :destroy, inverse_of: 'followed'
   has_many :passive_relationships, class_name: 'Follower', foreign_key: 'followed_id', dependent: :destroy, inverse_of: 'follower'
 
