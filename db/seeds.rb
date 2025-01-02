@@ -41,6 +41,38 @@ CSV.foreach('db/seeds/follower_seed.csv', headers: true) do |row|
   follower.save!
 end
 
+CSV.foreach('db/seeds/like_seed.csv', headers: true) do |row|
+  like = Like.create(
+    tweet_id: row['tweet_id'],
+    user_id: row['user_id']
+  )
+
+  like.save!
+end
+
+
+CSV.foreach('db/seeds/retweet_seed.csv', headers: true) do |row|
+  retweet = Retweet.create(
+    tweet_id: row['tweet_id'],
+    user_id: row['user_id']
+  )
+
+  retweet.save!
+end
+
+
+CSV.foreach('db/seeds/comment_seed.csv', headers: true) do |row|
+  comment = Comment.create(
+    tweet_id: row['tweet_id'],
+    user_id: row['user_id'],
+		comment_text: row['comment_text']
+  )
+
+  comment.save!
+end
+
+
+
 # 単一登録用
 # user = User.create(name: 'テストユーザー', email: 'test@testtest.com', password: 'password', phone_number: '08000000000', birthday: '1993-11-10')
 # user.save!
