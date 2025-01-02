@@ -88,18 +88,18 @@ div[style="height: 100vh; max-height: 1000px;"]
 
                 li.nav-item.w-25.text-center
                   .nav-link
-                    div class="#{'active' if params[:tab] == 'follow'} text-center hover-bg" type="button" data-bs-toggle="tab" data-bs-target="#following"
-                      = link_to 'いいね', user_path(tab: 'follow'), class: 'text-dark text-decoration-none'
+                    div class="#{'active' if params[:tab] == 'like'} text-center hover-bg" type="button" data-bs-toggle="tab" data-bs-target="#liked"
+                      = link_to 'いいね', user_path(tab: 'like'), class: 'text-dark text-decoration-none'
 
                 li.nav-item.w-25.text-center
                   .nav-link
-                    div class="#{'active' if params[:tab] == 'recommend'} text-center hover-bg" type="button" data-bs-toggle="tab" data-bs-target="#for-you"
-                      = link_to 'リツイート', user_path(tab: 'recommend'), class: 'text-dark text-decoration-none'
+                    div class="#{'active' if params[:tab] == 'retweet'} text-center hover-bg" type="button" data-bs-toggle="tab" data-bs-target="#retweeted"
+                      = link_to 'リツイート', user_path(tab: 'retweet'), class: 'text-dark text-decoration-none'
 
                 li.nav-item.w-25.text-center
                   .nav-link
-                    div class="#{'active' if params[:tab] == 'follow'} text-center hover-bg" type="button" data-bs-toggle="tab" data-bs-target="#following"
-                      = link_to 'コメント', user_path(tab: 'follow'), class: 'text-dark text-decoration-none'
+                    div class="#{'active' if params[:tab] == 'comment'} text-center hover-bg" type="button" data-bs-toggle="tab" data-bs-target="#commented"
+                      = link_to 'コメント', user_path(tab: 'comment'), class: 'text-dark text-decoration-none'
                 
               
               .tab-content
@@ -121,31 +121,63 @@ div[style="height: 100vh; max-height: 1000px;"]
                             i.bi.bi-arrow-repeat
                           li.nav-item
                             i.bi.bi-heart
-                div class="#{'show active' if params[:tab] == 'follow'} tab-pane fade " id="following"
-                  - if user_signed_in?
-                    - @user_tweets.each do |tweet|
-                      .hstack.m-2
-                        .mb-auto.d-flex
-                          img.rounded-circle.me-2[src="https://placehold.jp/100x100.png" alt="" width="48" height="48"]
-                        .vstack
-                          .fw-bold
-                            = tweet.user_id
-                          = tweet.tweet_text
-                          - if tweet.image.present?
-                            = image_tag tweet.image.representation(resize_to_fill: [300, 200])
-                          ul.nav.fs-6.ms-3.mt-2.d-flex.justify-content-between.w-50
-                            li.nav-item
-                              i.bi.bi-chat
-                            li.nav-item
-                              i.bi.bi-arrow-repeat
-                            li.nav-item
-                              i.bi.bi-heart
-                  - else
-                    .border.border-5.text-center.m-5
-                      |  こちらのツイートを表示するためには、<br>まずはログインをしてください！
+                div class="#{'show active' if params[:tab] == 'like'} tab-pane fade " id="liked"
+                  - @like_tweets.each do |tweet|
+                    .hstack.p-3.border-bottom
+                      .mb-auto.d-flex
+                        img.rounded-circle.me-2[src="https://placehold.jp/100x100.png" alt="" width="48" height="48"]
+                      .vstack
+                        .fw-bold
+                          = tweet.user_id
+                        = tweet.tweet_text
+                        - if tweet.image.present?
+                          = image_tag tweet.image.representation(resize_to_fill: [300, 200])
+                        ul.nav.fs-6.ms-3.mt-2.d-flex.justify-content-between.w-50
+                          li.nav-item
+                            i.bi.bi-chat
+                          li.nav-item
+                            i.bi.bi-arrow-repeat
+                          li.nav-item
+                            i.bi.bi-heart
+                div class="#{'show active' if params[:tab] == 'retweet'} tab-pane fade " id="retweeted"
+                  - @retweet_tweets.each do |tweet|
+                    .hstack.p-3.border-bottom
+                      .mb-auto.d-flex
+                        img.rounded-circle.me-2[src="https://placehold.jp/100x100.png" alt="" width="48" height="48"]
+                      .vstack
+                        .fw-bold
+                          = tweet.user_id
+                        = tweet.tweet_text
+                        - if tweet.image.present?
+                          = image_tag tweet.image.representation(resize_to_fill: [300, 200])
+                        ul.nav.fs-6.ms-3.mt-2.d-flex.justify-content-between.w-50
+                          li.nav-item
+                            i.bi.bi-chat
+                          li.nav-item
+                            i.bi.bi-arrow-repeat
+                          li.nav-item
+                            i.bi.bi-heart
+                div class="#{'show active' if params[:tab] == 'comment'} tab-pane fade " id="commented"
+                  - @comment_tweets.each do |tweet|
+                    .hstack.p-3.border-bottom
+                      .mb-auto.d-flex
+                        img.rounded-circle.me-2[src="https://placehold.jp/100x100.png" alt="" width="48" height="48"]
+                      .vstack
+                        .fw-bold
+                          = tweet.user_id
+                        = tweet.tweet_text
+                        - if tweet.image.present?
+                          = image_tag tweet.image.representation(resize_to_fill: [300, 200])
+                        ul.nav.fs-6.ms-3.mt-2.d-flex.justify-content-between.w-50
+                          li.nav-item
+                            i.bi.bi-chat
+                          li.nav-item
+                            i.bi.bi-arrow-repeat
+                          li.nav-item
+                            i.bi.bi-heart
 
-                .p-1.d-flex.align-items-center.sticky-bottom
-                  = paginate @user_tweets, theme: 'bootstrap-5'
+                / .p-1.d-flex.align-items-center.sticky-bottom
+                /   = paginate @user_tweets, theme: 'bootstrap-5'
 
         .h-100
           .border-start[style="width: 260px;"]
