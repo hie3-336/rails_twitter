@@ -60,32 +60,34 @@ div[style="height: 100vh; max-height: 1000px;"]
                 .fs-4.fw-bold.ms-4
                   = @user.name
               - if @user.profile_image.present?
-                = image_tag @user.profile_image.representation(resize_to_fit: [660, 220])
+                = image_tag @user.profile_image.representation(resize_to_fill: [660, 220])
+              - else
+                = image_tag "660x220.png"
               .position-relative
-                img.rounded-circle.position-absolute.ms-3.top-0.start-0.translate-middle-y[src="https://placehold.jp/100x100.png" alt="" width="100" height="100"]
+                - if @user.avater_image.present?
+                  = image_tag @user.avater_image.representation(resize_to_fill: [100, 100]), class: "rounded-circle position-absolute ms-3 top-0 start-0 translate-middle-y border"
+                - else
+                  img.rounded-circle.position-absolute.ms-3.top-0.start-0.translate-middle-y[src="https://placehold.jp/100x100.png" alt="" width="100" height="100"]
               .d-flex
                 = link_to "プロフィールを編集", new_user_registration_path, class: "btn btn-primary ms-auto m-3"
               .fs-5.ms-3
                 | @
                 = @user.name
               .ms-3
-                | aaaaaaaaaaaaa
-                br
-                | bbbbbbbb.
-              .ms-3.fs-6.text-muted.d-flex
+                = @user.introduction
+              .ms-3.mt-2.fs-6.text-muted.d-flex
                 .bi.bi-geo-alt
-                  | 場所：
+                  = @user.place
                 .bi.bi-link-45deg.ms-2
-                  | ウェブサイト：
+                  = @user.website
                 .bi.bi-balloon.ms-2
-                  | 生年月日：
                   = @user.birthday
 
               ul.nav.nav-underline.justify-content-center.border-bottom
                 li.nav-item.w-25.text-center
                   .nav-link
-                    div class="#{'active' if params[:tab] == 'recommend'} text-center hover-bg" type="button" data-bs-toggle="tab" data-bs-target="#for-you"
-                      = link_to 'ツイート', user_path(tab: 'recommend'), class: 'text-dark text-decoration-none'
+                    div class="#{'active' if params[:tab] == 'tweet'} text-center hover-bg" type="button" data-bs-toggle="tab" data-bs-target="#tweeted"
+                      = link_to 'ツイート', user_path(tab: 'tweet'), class: 'text-dark text-decoration-none'
 
                 li.nav-item.w-25.text-center
                   .nav-link
@@ -104,14 +106,17 @@ div[style="height: 100vh; max-height: 1000px;"]
                 
               
               .tab-content
-                div class="#{'show active' if params[:tab] == 'recommend'} tab-pane fade " id="for-you"
+                div class="#{'show active' if params[:tab] == 'tweet'} tab-pane fade " id="tweeted"
                   - @user_tweets.each do |tweet|
                     .hstack.p-3.border-bottom
                       .mb-auto.d-flex
-                        img.rounded-circle.me-2[src="https://placehold.jp/100x100.png" alt="" width="48" height="48"]
+                        - if @user.avater_image.present?
+                          = image_tag @user.avater_image.representation(resize_to_fill: [50, 50]), class: "rounded-circle me-2 border"
+                        - else
+                          = image_tag "default_i.png", class: "rounded-circle me-2 border", size: '50x50'
                       .vstack
                         .fw-bold
-                          = tweet.user_id
+                          = tweet.user.name
                         = tweet.tweet_text
                         - if tweet.image.present?
                           = image_tag tweet.image.representation(resize_to_fit: [600, 400])
@@ -126,10 +131,13 @@ div[style="height: 100vh; max-height: 1000px;"]
                   - @like_tweets.each do |tweet|
                     .hstack.p-3.border-bottom
                       .mb-auto.d-flex
-                        img.rounded-circle.me-2[src="https://placehold.jp/100x100.png" alt="" width="48" height="48"]
+                        - if tweet.user.avater_image.present?
+                          = image_tag tweet.user.avater_image.representation(resize_to_fill: [50, 50]), class: "rounded-circle me-2 border"
+                        - else
+                          = image_tag "default_i.png", class: "rounded-circle me-2 border", size: '50x50'
                       .vstack
                         .fw-bold
-                          = tweet.user_id
+                          = tweet.user.name
                         = tweet.tweet_text
                         - if tweet.image.present?
                           = image_tag tweet.image.representation(resize_to_fill: [300, 200])
@@ -144,10 +152,13 @@ div[style="height: 100vh; max-height: 1000px;"]
                   - @retweet_tweets.each do |tweet|
                     .hstack.p-3.border-bottom
                       .mb-auto.d-flex
-                        img.rounded-circle.me-2[src="https://placehold.jp/100x100.png" alt="" width="48" height="48"]
+                        - if @user.avater_image.present?
+                          = image_tag @user.avater_image.representation(resize_to_fill: [50, 50]), class: "rounded-circle me-2 border"
+                        - else
+                          = image_tag "default_i.png", class: "rounded-circle me-2 border", size: '50x50'
                       .vstack
                         .fw-bold
-                          = tweet.user_id
+                          = tweet.user.name
                         = tweet.tweet_text
                         - if tweet.image.present?
                           = image_tag tweet.image.representation(resize_to_fill: [300, 200])
@@ -162,10 +173,13 @@ div[style="height: 100vh; max-height: 1000px;"]
                   - @comment_tweets.each do |tweet|
                     .hstack.p-3.border-bottom
                       .mb-auto.d-flex
-                        img.rounded-circle.me-2[src="https://placehold.jp/100x100.png" alt="" width="48" height="48"]
+                        - if @user.avater_image.present?
+                          = image_tag @user.avater_image.representation(resize_to_fill: [50, 50]), class: "rounded-circle me-2 border"
+                        - else
+                          = image_tag "default_i.png", class: "rounded-circle me-2 border", size: '50x50'
                       .vstack
                         .fw-bold
-                          = tweet.user_id
+                          = tweet.user.name
                         = tweet.tweet_text
                         - if tweet.image.present?
                           = image_tag tweet.image.representation(resize_to_fill: [300, 200])
@@ -176,9 +190,19 @@ div[style="height: 100vh; max-height: 1000px;"]
                             i.bi.bi-arrow-repeat
                           li.nav-item
                             i.bi.bi-heart
+                div class="#{'show active' if params[:tab] == 'tweet'} tab-pane fade " id="tweeted"
+                  .p-1.d-flex.align-items-center.sticky-bottom
+                    = paginate @user_tweets, theme: 'bootstrap-5'
+                div class="#{'show active' if params[:tab] == 'like'} tab-pane fade " id="liked"
+                  .p-1.d-flex.align-items-center.sticky-bottom
+                    = paginate @like_tweets, theme: 'bootstrap-5'
+                div class="#{'show active' if params[:tab] == 'retweet'} tab-pane fade " id="retweeted"
+                  .p-1.d-flex.align-items-center.sticky-bottom
+                    = paginate @retweet_tweets, theme: 'bootstrap-5'
+                div class="#{'show active' if params[:tab] == 'comment'} tab-pane fade " id="commented"
+                  .p-1.d-flex.align-items-center.sticky-bottom
+                    = paginate @comment_tweets, theme: 'bootstrap-5'
 
-                / .p-1.d-flex.align-items-center.sticky-bottom
-                /   = paginate @user_tweets, theme: 'bootstrap-5'
 
         .h-100
           .border-start[style="width: 260px;"]
