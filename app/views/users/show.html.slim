@@ -59,7 +59,8 @@ div[style="height: 100vh; max-height: 1000px;"]
                 .bi.bi-arrow-left.m-2.fs-4
                 .fs-4.fw-bold.ms-4
                   = @user.name
-              = image_tag "660x220.png"
+              - if @user.profile_image.present?
+                = image_tag @user.profile_image.representation(resize_to_fit: [660, 220])
               .position-relative
                 img.rounded-circle.position-absolute.ms-3.top-0.start-0.translate-middle-y[src="https://placehold.jp/100x100.png" alt="" width="100" height="100"]
               .d-flex

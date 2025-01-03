@@ -17,8 +17,14 @@ CSV.foreach('db/seeds/user_seed.csv', headers: true) do |row|
     password: row['password'],
     phone_number: row['phone_number'],
     birthday: row['birthday'],
+    introduction: row['introduction'],
+    place: row['place'],
+    website: row['website'],
     confirmed_at: Time.zone.now
   )
+
+  user.profile_image.attach(io: File.open("db/testimage/#{row['h_filename']}.JPG"), filename: "#{row['h_filename']}.jpg") if row['h_filename'].present?
+  user.avater_image.attach(io: File.open("db/testimage/#{row['i_filename']}.JPG"), filename: "#{row['i_filename']}.jpg") if row['i_filename'].present?
   user.save!
 end
 
