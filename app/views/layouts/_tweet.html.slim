@@ -1,0 +1,20 @@
+- tweets.each do |tweet|
+	.hstack.p-3.border-bottom
+		.mb-auto.d-flex
+			- if tweet.user.avater_image.present?
+				= image_tag tweet.user.avater_image.representation(resize_to_fill: [50, 50]), class: "rounded-circle me-2 border"
+			- else
+				= image_tag "default_i.png", class: "rounded-circle me-2 border", size: '50x50'
+		.vstack
+			.fw-bold
+				= tweet.user.name
+			= tweet.tweet_text
+			- if tweet.image.present?
+				= image_tag tweet.image.representation(resize_to_fill: [300, 200])
+			ul.nav.fs-6.ms-3.mt-2.d-flex.justify-content-between.w-50
+				li.nav-item
+					i.bi.bi-chat
+				li.nav-item
+					i.bi.bi-arrow-repeat
+				li.nav-item
+					i.bi.bi-heart

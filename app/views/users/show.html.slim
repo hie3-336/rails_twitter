@@ -106,92 +106,15 @@ div[style="height: 100vh; max-height: 1000px;"]
                     div class="#{'active' if params[:tab] == 'comment'} text-center hover-bg" type="button" data-bs-toggle="tab" data-bs-target="#commented"
                       = link_to 'コメント', user_path(tab: 'comment'), class: 'text-dark text-decoration-none'
                 
-              
               .tab-content
                 div class="#{'show active' if params[:tab] == 'tweet'} tab-pane fade " id="tweeted"
-                  - @user_tweets.each do |tweet|
-                    .hstack.p-3.border-bottom
-                      .mb-auto.d-flex
-                        - if tweet.user.avater_image.present?
-                          = image_tag tweet.user.avater_image.representation(resize_to_fill: [50, 50]), class: "rounded-circle me-2 border"
-                        - else
-                          = image_tag "default_i.png", class: "rounded-circle me-2 border", size: '50x50'
-                      .vstack
-                        .fw-bold
-                          = tweet.user.name
-                        = tweet.tweet_text
-                        - if tweet.image.present?
-                          = image_tag tweet.image.representation(resize_to_fit: [600, 400])
-                        ul.nav.fs-6.ms-3.mt-2.d-flex.justify-content-between.w-50
-                          li.nav-item
-                            i.bi.bi-chat
-                          li.nav-item
-                            i.bi.bi-arrow-repeat
-                          li.nav-item
-                            i.bi.bi-heart
+                  = render partial: 'layouts/tweet', locals: { tweets: @user_tweets }
                 div class="#{'show active' if params[:tab] == 'like'} tab-pane fade " id="liked"
-                  - @like_tweets.each do |tweet|
-                    .hstack.p-3.border-bottom
-                      .mb-auto.d-flex
-                        - if tweet.user.avater_image.present?
-                          = image_tag tweet.user.avater_image.representation(resize_to_fill: [50, 50]), class: "rounded-circle me-2 border"
-                        - else
-                          = image_tag "default_i.png", class: "rounded-circle me-2 border", size: '50x50'
-                      .vstack
-                        .fw-bold
-                          = tweet.user.name
-                        = tweet.tweet_text
-                        - if tweet.image.present?
-                          = image_tag tweet.image.representation(resize_to_fill: [300, 200])
-                        ul.nav.fs-6.ms-3.mt-2.d-flex.justify-content-between.w-50
-                          li.nav-item
-                            i.bi.bi-chat
-                          li.nav-item
-                            i.bi.bi-arrow-repeat
-                          li.nav-item
-                            i.bi.bi-heart
+                  = render partial: 'layouts/tweet', locals: { tweets: @like_tweets }
                 div class="#{'show active' if params[:tab] == 'retweet'} tab-pane fade " id="retweeted"
-                  - @retweet_tweets.each do |tweet|
-                    .hstack.p-3.border-bottom
-                      .mb-auto.d-flex
-                        - if tweet.user.avater_image.present?
-                          = image_tag tweet.user.avater_image.representation(resize_to_fill: [50, 50]), class: "rounded-circle me-2 border"
-                        - else
-                          = image_tag "default_i.png", class: "rounded-circle me-2 border", size: '50x50'
-                      .vstack
-                        .fw-bold
-                          = tweet.user.name
-                        = tweet.tweet_text
-                        - if tweet.image.present?
-                          = image_tag tweet.image.representation(resize_to_fill: [300, 200])
-                        ul.nav.fs-6.ms-3.mt-2.d-flex.justify-content-between.w-50
-                          li.nav-item
-                            i.bi.bi-chat
-                          li.nav-item
-                            i.bi.bi-arrow-repeat
-                          li.nav-item
-                            i.bi.bi-heart
+                  = render partial: 'layouts/tweet', locals: { tweets: @retweet_tweets }
                 div class="#{'show active' if params[:tab] == 'comment'} tab-pane fade " id="commented"
-                  - @comment_tweets.each do |tweet|
-                    .hstack.p-3.border-bottom
-                      .mb-auto.d-flex
-                        - if tweet.user.avater_image.present?
-                          = image_tag tweet.user.avater_image.representation(resize_to_fill: [50, 50]), class: "rounded-circle me-2 border"
-                        - else
-                          = image_tag "default_i.png", class: "rounded-circle me-2 border", size: '50x50'
-                      .vstack
-                        .fw-bold
-                          = tweet.user.name
-                        = tweet.tweet_text
-                        - if tweet.image.present?
-                          = image_tag tweet.image.representation(resize_to_fill: [300, 200])
-                        ul.nav.fs-6.ms-3.mt-2.d-flex.justify-content-between.w-50
-                          li.nav-item
-                            i.bi.bi-chat
-                          li.nav-item
-                            i.bi.bi-arrow-repeat
-                          li.nav-item
-                            i.bi.bi-heart
+                  = render partial: 'layouts/tweet', locals: { tweets: @comment_tweets }
                 div class="#{'show active' if params[:tab] == 'tweet'} tab-pane fade " id="tweeted"
                   .p-1.d-flex.align-items-center.sticky-bottom
                     = paginate @user_tweets, theme: 'bootstrap-5'
@@ -204,7 +127,6 @@ div[style="height: 100vh; max-height: 1000px;"]
                 div class="#{'show active' if params[:tab] == 'comment'} tab-pane fade " id="commented"
                   .p-1.d-flex.align-items-center.sticky-bottom
                     = paginate @comment_tweets, theme: 'bootstrap-5'
-
 
         .h-100
           .border-start[style="width: 260px;"]
