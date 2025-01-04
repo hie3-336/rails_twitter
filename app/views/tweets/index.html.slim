@@ -40,8 +40,10 @@ div[style="height: 100vh; max-height: 1000px;"]
             .dropdown.mt-auto.mb-3
               - if user_signed_in?
                 a.d-flex.align-items-center.link-body-emphasis.text-decoration-none.dropdown-toggle[href="#" data-bs-toggle="dropdown" aria-expanded="false"]
-
-                  img.rounded-circle.me-2[src="https://placehold.jp/100x100.png" alt="" width="48" height="48"]
+                  - if @user.avater_image.present?
+                    = image_tag @user.avater_image.representation(resize_to_fill: [50, 50]), class: "rounded-circle me-2 border"
+                  - else
+                    = image_tag "default_i.png", class: "rounded-circle me-2 border", size: '50x50'
                   strong
                   = @user.name
                 ul.dropdown-menu.text-small.shadow
@@ -66,7 +68,10 @@ div[style="height: 100vh; max-height: 1000px;"]
                     = link_to 'フォロー中', root_path(tab: 'follow'), class: 'text-dark text-decoration-none'
             .hstack.border-bottom.p-2
               .mb-auto.d-flex
-                img.rounded-circle.me-2[src="https://placehold.jp/100x100.png" alt="" width="48" height="48"]
+                - if @user.avater_image.present?
+                  = image_tag @user.avater_image.representation(resize_to_fill: [50, 50]), class: "rounded-circle me-2 border"
+                - else
+                  = image_tag "default_i.png", class: "rounded-circle me-2 border", size: '50x50'
               .vstack
                 textarea.form-control.border-0[rows="3"]
                 ul.nav.fs-4.ms-3.mt-2.mb-2
