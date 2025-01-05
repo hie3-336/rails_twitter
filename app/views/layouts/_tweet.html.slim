@@ -1,6 +1,6 @@
 - tweets.each do |tweet|
 	.hstack.p-3.border-bottom
-		.mb-auto.d-flex
+		= link_to user_path(tweet.user.name, tab: 'tweet') ,class: "mb-auto d-flex" do
 			- if tweet.user.avater_image.present?
 				= image_tag tweet.user.avater_image.representation(resize_to_fill: [50, 50]), class: "rounded-circle me-2 border"
 			- else

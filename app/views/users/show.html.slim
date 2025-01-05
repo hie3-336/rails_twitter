@@ -2,10 +2,9 @@ div[style="height: 100vh; max-height: 1000px;"]
   .d-flex.justify-content-center.w-100
     main.d-flex.flex-nowrap.flex-column.h-100
       header.d-flex.flex-wrap.align-items-center.justify-content-center.justify-content-md-between.py-3.border-bottom.w-100
-        .d-flex.nav-link.fs-3.align-items-center
+        = link_to root_path(tab: 'recommend'), class: "d-flex nav-link fs-3 align-items-center" do
           i.bi.bi-twitter.mx-3
-          a
-            | Hietter
+          | Hietter
         .col-md-3.mb-2.mb-md-0
         .col-md-3.text-end
           - if user_signed_in?
@@ -20,19 +19,20 @@ div[style="height: 100vh; max-height: 1000px;"]
               li
                 .d-flex.nav-link.fs-4.align-items-center
                   i.bi.bi-house.me-2
-                  |  ホーム 
-              li
-                a.d-flex.nav-link.link-body-emphasis.fs-4.align-items-center[href="#"]
-                  i.bi.bi-bell.me-2
-                  |  通知 
-              li
-                a.d-flex.nav-link.link-body-emphasis.fs-4.align-items-center[href="#"]
-                  i.bi.bi-envelope.me-2
-                  |  メッセージ 
-              li
-                a.d-flex.nav-link.link-body-emphasis.fs-4.align-items-center[href="#"]
-                  i.bi.bi-person.me-2
-                  |  プロフィール 
+                  |  ホーム
+              - if user_signed_in? 
+                li
+                  a.d-flex.nav-link.link-body-emphasis.fs-4.align-items-center[href="#"]
+                    i.bi.bi-bell.me-2
+                    |  通知 
+                li
+                  a.d-flex.nav-link.link-body-emphasis.fs-4.align-items-center[href="#"]
+                    i.bi.bi-envelope.me-2
+                    |  メッセージ 
+                li 
+                  = link_to user_path(@user.name, tab: 'tweet') ,class: "d-flex nav-link link-body-emphasis fs-4 align-items-center" do
+                    i.bi.bi-person.me-2
+                    | プロフィール
               li
                 a.d-flex.nav-link.link-body-emphasis.fs-4.align-items-center[href="#"]
                   i.bi.bi-gear.me-2
@@ -58,7 +58,8 @@ div[style="height: 100vh; max-height: 1000px;"]
           .border-bottom[style="width: 660px;"]
             .overflow-auto[style="height: calc(93vh - 100px); "]
               .d-flex
-                .bi.bi-arrow-left.m-2.fs-4
+                = link_to root_path(tab: 'recommend') do
+                  .bi.bi-arrow-left.m-2.fs-4.text-dark
                 .fs-4.fw-bold.ms-4
                   = @profile_user.name
               - if @profile_user.profile_image.present?
