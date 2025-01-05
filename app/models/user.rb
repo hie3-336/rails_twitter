@@ -6,8 +6,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :confirmable, :lockable, :timeoutable, :trackable, :omniauthable, omniauth_providers: %i[github]
   validates :name, presence: true,
-    format: { with: /\A[a-zA-Z0-9_-]+\z/ },
-    length: { minimum: 3, maximum: 25 }
+                   format: { with: /\A[a-zA-Z0-9_-]+\z/ },
+                   length: { minimum: 3, maximum: 25 }
 
   validates :email, presence: true
   validates :phone_number, presence: true
@@ -17,10 +17,6 @@ class User < ApplicationRecord
 
   has_many :tweets, dependent: :destroy
 
-  # throughの使い方自信ない
-  # has_many :liked_tweets, through: :likes
-  # has_many :retweeted_tweets, through: :retweets
-  # has_many :commented_tweets, through: :comments
   has_many :likes, dependent: :destroy
   has_many :retweets, dependent: :destroy
   has_many :comments, dependent: :destroy
@@ -31,8 +27,7 @@ class User < ApplicationRecord
   has_many :followings, through: :active_relationships, source: :followed
   has_many :followers, through: :passive_relationships, source: :follower
 
-
-  #プロフィール画像
+  # プロフィール画像
   has_one_attached :avater_image
   has_one_attached :profile_image
 

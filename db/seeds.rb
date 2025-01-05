@@ -23,7 +23,10 @@ CSV.foreach('db/seeds/user_seed.csv', headers: true) do |row|
     confirmed_at: Time.zone.now
   )
 
-  user.profile_image.attach(io: File.open("db/testimage/#{row['h_filename']}.JPG"), filename: "#{row['h_filename']}.jpg") if row['h_filename'].present?
+  if row['h_filename'].present?
+    user.profile_image.attach(io: File.open("db/testimage/#{row['h_filename']}.JPG"),
+                              filename: "#{row['h_filename']}.jpg")
+  end
   user.avater_image.attach(io: File.open("db/testimage/#{row['i_filename']}.JPG"), filename: "#{row['i_filename']}.jpg") if row['i_filename'].present?
   user.save!
 end
@@ -56,7 +59,6 @@ CSV.foreach('db/seeds/like_seed.csv', headers: true) do |row|
   like.save!
 end
 
-
 CSV.foreach('db/seeds/retweet_seed.csv', headers: true) do |row|
   retweet = Retweet.create(
     tweet_id: row['tweet_id'],
@@ -66,18 +68,15 @@ CSV.foreach('db/seeds/retweet_seed.csv', headers: true) do |row|
   retweet.save!
 end
 
-
 CSV.foreach('db/seeds/comment_seed.csv', headers: true) do |row|
   comment = Comment.create(
     tweet_id: row['tweet_id'],
     user_id: row['user_id'],
-		comment_text: row['comment_text']
+    comment_text: row['comment_text']
   )
 
   comment.save!
 end
-
-
 
 # 単一登録用
 # user = User.create(name: 'テストユーザー', email: 'test@testtest.com', password: 'password', phone_number: '08000000000', birthday: '1993-11-10')
