@@ -72,7 +72,7 @@ CSV.foreach('db/seeds/comment_seed.csv', headers: true) do |row|
   comment = Comment.create(
     tweet_id: row['tweet_id'],
     user_id: row['user_id'],
-    comment_text: row['comment_text']
+    comment_content: row['comment_content']
   )
 
   comment.save!
