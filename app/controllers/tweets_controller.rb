@@ -6,7 +6,6 @@ class TweetsController < ApplicationController
     @tweets = Tweet.with_attached_image.page(params[:page]).per(5).includes(user: { avater_image_attachment: :blob })
     return if @user.blank?
 
-    @following_tweets = @tweets.where(user_id: @user.followings.map(&:id)).page(params[:page]).per(5)
-                               .includes(user: { avater_image_attachment: :blob })
+    @following_tweets = @user.tweets.page(params[:page]).per(5).includes(user: { avater_image_attachment: :blob })
   end
 end
