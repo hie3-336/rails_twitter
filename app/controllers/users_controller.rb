@@ -1,11 +1,10 @@
 # frozen_string_literal: true
 
 class UsersController < ApplicationController
-  before_action :authenticate_user!, only: [:edit, :update]
+  before_action :set_user
+  before_action :authenticate_user!, only: %i[edit update]
 
   def show
-    @user = current_user
-    @profile_user = User.find_by(name: params[:name])
     @user_tweets = @profile_user.tweets.with_attached_image
                                 .page(params[:page]).per(5)
                                 .includes(user: { avater_image_attachment: :blob })
@@ -16,25 +15,25 @@ class UsersController < ApplicationController
   end
 
   def edit
-    @user = current_user
-    @profile_user = User.find_by(name: params[:name])
+    return unless @user != @profile_user
 
-    if @user != @profile_user
-      redirect_to user_path(@user.name, tab: 'tweet'), alert: "こちらのページにはアクセスできません"  
-    end
-
+    redirect_to user_path(@user.name, tab: 'tweet'), alert: 'こちらのページにはアクセスできません'
   end
 
   def update
-    @user = current_user
     if @user.update(user_params)
-      redirect_to user_path(@user.name, tab: 'tweet'), notice: "プロフィールを更新しました！"
+      redirect_to user_path(@user.name, tab: 'tweet'), notice: 'プロフィールを更新しました！'
     else
       render :edit, status: :unprocessable_entity
     end
   end
 
   private
+
+  def set_user
+    @user = current_user
+    @profile_user = User.find_by(name: params[:name])
+  end
 
   # 各種ツイート取得処理
   def fetch_tweets(tweet_ids)
@@ -46,5 +45,4 @@ class UsersController < ApplicationController
   def user_params
     params.require(:user).permit(:name, :phone_number, :birthday, :introduction, :place, :website, :profile_image, :avatar_image)
   end
-
 end
