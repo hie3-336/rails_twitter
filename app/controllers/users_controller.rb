@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class UsersController < ApplicationController
+  before_action :authenticate_user!, only: [:edit, :update]
+
   def show
     @user = current_user
     @profile_user = User.find_by(name: params[:name])
@@ -18,7 +20,7 @@ class UsersController < ApplicationController
     @profile_user = User.find_by(name: params[:name])
 
     if @user != @profile_user
-      redirect_to user_path(@user.name, tab: 'tweet')    
+      redirect_to user_path(@user.name, tab: 'tweet'), alert: "こちらのページにはアクセスできません"  
     end
 
   end
