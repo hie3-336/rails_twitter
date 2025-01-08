@@ -1,0 +1,136 @@
+div[style="height: 100vh; max-height: 1000px;"]
+  .d-flex.justify-content-center.w-100
+    main.d-flex.flex-nowrap.flex-column.h-100
+      header.d-flex.flex-wrap.align-items-center.justify-content-center.justify-content-md-between.py-3.border-bottom.w-100
+        = link_to root_path(tab: 'recommend'), class: "d-flex nav-link fs-3 align-items-center" do
+          i.bi.bi-twitter.mx-3
+          | Hietter
+        .col-md-3.mb-2.mb-md-0
+        .col-md-3.text-end
+          - if user_signed_in?
+            = link_to "ログアウト", destroy_user_session_path, class: "btn btn-outline-primary me-2" , data: { turbo_method: :delete }
+          - else
+            = link_to "ログイン", new_user_session_path, class: "btn btn-outline-primary me-2"
+            = link_to "新規登録", new_user_registration_path, class: "btn btn-primary"
+      .hstack
+        .p-1.border-end
+          .d-flex.flex-column.align-items-start.flex-shrink-0.p-3.bg-body-tertiary[style="width: 260px; height: calc(100vh - 70px); min-height: 650px;"]
+            ul.nav.nav-pills.navbar-nav.flex-column.gap-0.row-gap-3
+              li
+                .d-flex.nav-link.fs-4.align-items-center
+                  i.bi.bi-house.me-2
+                  |  ホーム
+              - if user_signed_in? 
+                li
+                  a.d-flex.nav-link.link-body-emphasis.fs-4.align-items-center[href="#"]
+                    i.bi.bi-bell.me-2
+                    |  通知 
+                li
+                  a.d-flex.nav-link.link-body-emphasis.fs-4.align-items-center[href="#"]
+                    i.bi.bi-envelope.me-2
+                    |  メッセージ 
+                li 
+                  = link_to user_path(@user.name, tab: 'tweet') ,class: "d-flex nav-link link-body-emphasis fs-4 align-items-center" do
+                    i.bi.bi-person.me-2
+                    | プロフィール
+              li
+                a.d-flex.nav-link.link-body-emphasis.fs-4.align-items-center[href="#"]
+                  i.bi.bi-gear.me-2
+                  |  設定 
+            .dropdown.mt-auto.mb-3
+              - if user_signed_in?
+                a.d-flex.align-items-center.link-body-emphasis.text-decoration-none.dropdown-toggle[href="#" data-bs-toggle="dropdown" aria-expanded="false"]
+                  - if @user.avater_image.present?
+                    = image_tag @user.avater_image.representation(resize_to_fill: [50, 50]), class: "rounded-circle me-2 border"
+                  - else
+                    = image_tag "default_i.png", class: "rounded-circle me-2 border", size: '50x50'
+                  strong
+                  = @user.name
+                ul.dropdown-menu.text-small.shadow
+                  li
+                    a.dropdown-item[href="#"]
+                      |  プロフィール
+              - else
+                .fs-5
+                  |  ゲスト
+
+        .h-100.border-end.mb-auto
+          .border-bottom[style="width: 660px;"]
+            .overflow-auto[style="height: calc(93vh - 100px); "]
+              .d-flex
+                = link_to root_path(tab: 'recommend') do
+                  .bi.bi-arrow-left.m-2.fs-4.text-dark
+                .fs-4.fw-bold.ms-4
+                  = @profile_user.name
+              - if @profile_user.profile_image.present?
+                = image_tag @profile_user.profile_image.representation(resize_to_fill: [660, 220])
+              - else
+                = image_tag "660x220.png"
+              .position-relative
+                - if @profile_user.avater_image.present?
+                  = image_tag @profile_user.avater_image.representation(resize_to_fill: [100, 100]), class: "rounded-circle position-absolute ms-3 top-0 start-0 translate-middle-y border"
+                - else
+                  = image_tag "default_i.png", class: "rounded-circle position-absolute ms-3 top-0 start-0 translate-middle-y bg-light", size: '100x100'
+              .d-flex
+                = link_to "プロフィールを編集", new_user_registration_path, class: "btn btn-primary ms-auto m-3"
+              .fs-5.ms-3
+                | @
+                = @profile_user.name
+              .ms-3
+                = @profile_user.introduction
+              .ms-3.mt-2.fs-6.text-muted.d-flex
+                .bi.bi-geo-alt
+                  = @profile_user.place
+                .bi.bi-link-45deg.ms-2
+                  = @profile_user.website
+                .bi.bi-balloon.ms-2
+                  = @profile_user.birthday
+
+              ul.nav.nav-underline.justify-content-center.border-bottom
+                li.nav-item.w-25.text-center
+                  .nav-link
+                    div class="#{'active' if params[:tab] == 'tweet'} text-center hover-bg" type="button" data-bs-toggle="tab" data-bs-target="#tweeted"
+                      = link_to 'ツイート', user_path(tab: 'tweet'), class: 'text-dark text-decoration-none'
+
+                li.nav-item.w-25.text-center
+                  .nav-link
+                    div class="#{'active' if params[:tab] == 'like'} text-center hover-bg" type="button" data-bs-toggle="tab" data-bs-target="#liked"
+                      = link_to 'いいね', user_path(tab: 'like'), class: 'text-dark text-decoration-none'
+
+                li.nav-item.w-25.text-center
+                  .nav-link
+                    div class="#{'active' if params[:tab] == 'retweet'} text-center hover-bg" type="button" data-bs-toggle="tab" data-bs-target="#retweeted"
+                      = link_to 'リツイート', user_path(tab: 'retweet'), class: 'text-dark text-decoration-none'
+
+                li.nav-item.w-25.text-center
+                  .nav-link
+                    div class="#{'active' if params[:tab] == 'comment'} text-center hover-bg" type="button" data-bs-toggle="tab" data-bs-target="#commented"
+                      = link_to 'コメント', user_path(tab: 'comment'), class: 'text-dark text-decoration-none'
+                
+              .tab-content
+                div class="#{'show active' if params[:tab] == 'tweet'} tab-pane fade " id="tweeted"
+                  = render partial: 'layouts/tweet', locals: { tweets: @user_tweets }
+                div class="#{'show active' if params[:tab] == 'like'} tab-pane fade " id="liked"
+                  = render partial: 'layouts/tweet', locals: { tweets: @like_tweets }
+                div class="#{'show active' if params[:tab] == 'retweet'} tab-pane fade " id="retweeted"
+                  = render partial: 'layouts/tweet', locals: { tweets: @retweet_tweets }
+                div class="#{'show active' if params[:tab] == 'comment'} tab-pane fade " id="commented"
+                  = render partial: 'layouts/tweet', locals: { tweets: @comment_tweets }
+                div class="#{'show active' if params[:tab] == 'tweet'} tab-pane fade " id="tweeted"
+                  .p-1.d-flex.align-items-center.sticky-bottom
+                    = paginate @user_tweets, theme: 'bootstrap-5'
+                div class="#{'show active' if params[:tab] == 'like'} tab-pane fade " id="liked"
+                  .p-1.d-flex.align-items-center.sticky-bottom
+                    = paginate @like_tweets, theme: 'bootstrap-5'
+                div class="#{'show active' if params[:tab] == 'retweet'} tab-pane fade " id="retweeted"
+                  .p-1.d-flex.align-items-center.sticky-bottom
+                    = paginate @retweet_tweets, theme: 'bootstrap-5'
+                div class="#{'show active' if params[:tab] == 'comment'} tab-pane fade " id="commented"
+                  .p-1.d-flex.align-items-center.sticky-bottom
+                    = paginate @comment_tweets, theme: 'bootstrap-5'
+
+        .h-100
+          .border-start[style="width: 260px;"]
+
+              
+
