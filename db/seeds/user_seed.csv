@@ -1,11 +1,11 @@
-name,email,password,phone_number,birthday
-Testuser1,testmail1@test.com,password,9000000000,1/1
-Testuser2,testmail2@test.com,password,9000000000,1/1
-Testuser3,testmail3@test.com,password,9000000000,1/1
-Testuser4,testmail4@test.com,password,9000000000,1/1
-Testuser5,testmail5@test.com,password,9000000000,1/1
-Testuser6,testmail6@test.com,password,9000000000,1/1
-Testuser7,testmail7@test.com,password,9000000000,1/1
-Testuser8,testmail8@test.com,password,9000000000,1/1
-Testuser9,testmail9@test.com,password,9000000000,1/1
-Testuser10,testmail10@test.com,password,9000000000,1/1
+name,email,password,phone_number,birthday,introduction,place,website,h_filename,i_filename
+Amecha1,testmail1@test.com,password,9000000000,1/1,よろしくね！！,神奈川県,https://www.google.co.jp ,amecha_h,amecha_i
+Yuucha2,testmail2@test.com,password,9000000000,1/1,ゆうちゃだよ！よろしく〜,神奈川県,https://www.yahoo.co.jp ,yuucha_h,yuucha_i
+Koncha3,testmail3@test.com,password,9000000000,1/1,こんたろうです。よろしくお願いします。,神奈川県,https://www.msn.com/ja-jp ,koncha_h,koncha_i
+Testuser4,testmail4@test.com,password,9000000000,1/1,,,,,
+Testuser5,testmail5@test.com,password,9000000000,1/1,,,,,
+Testuser6,testmail6@test.com,password,9000000000,1/1,,,,,
+Testuser7,testmail7@test.com,password,9000000000,1/1,,,,,
+Testuser8,testmail8@test.com,password,9000000000,1/1,,,,,
+Testuser9,testmail9@test.com,password,9000000000,1/1,,,,,
+Testuser10,testmail10@test.com,password,9000000000,1/1,,,,,
