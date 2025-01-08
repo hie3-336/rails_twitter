@@ -4,13 +4,13 @@ class UsersController < ApplicationController
   def show
     @user = current_user
     @profile_user = User.find_by(name: params[:name])
-    @user_tweets = Tweet.where(user_id: @profile_user.id)
-                        .with_attached_image.page(params[:page]).per(5)
-                        .includes(user: { avater_image_attachment: :blob })
+    @user_tweets = @profile_user.tweets.with_attached_image
+                                .page(params[:page]).per(5)
+                                .includes(user: { avater_image_attachment: :blob })
 
-    @like_tweets = fetch_tweets(@profile_user.likes.map(&:tweet_id))
-    @retweet_tweets = fetch_tweets(@profile_user.retweets.map(&:tweet_id))
-    @comment_tweets = fetch_tweets(@profile_user.comments.map(&:tweet_id))
+    @like_tweets = fetch_tweets(@profile_user.likes.pluck(:tweet_id))
+    @retweet_tweets = fetch_tweets(@profile_user.retweets.pluck(:tweet_id))
+    @comment_tweets = fetch_tweets(@profile_user.comments.pluck(:tweet_id))
   end
 
   def edit
