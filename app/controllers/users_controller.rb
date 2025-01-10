@@ -15,9 +15,7 @@ class UsersController < ApplicationController
   end
 
   def edit
-    return unless @user != @profile_user
-
-    redirect_to user_path(@user.name, tab: 'tweet'), alert: 'こちらのページにはアクセスできません'
+    redirect_to user_path(@user.name, tab: 'tweet'), alert: 'こちらのページにはアクセスできません' if @user != @profile_user
   end
 
   def update
