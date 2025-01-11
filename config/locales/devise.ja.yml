@@ -28,6 +28,12 @@ ja:
         name: 名前
         phone_number: 電話番号
         birthday: 誕生日
+        place: 場所
+        website: ウェブサイト
+        introduction: 自己紹介
+        profile_image: プロフィール画像
+        avater_image: アバター画像
+
     models:
       user: ユーザー
   devise:
