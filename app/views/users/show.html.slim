@@ -72,12 +72,15 @@ div[style="height: 100vh; max-height: 1000px;"]
                 - else
                   = image_tag "default_i.png", class: "rounded-circle position-absolute ms-3 top-0 start-0 translate-middle-y bg-light", size: '100x100'
               .d-flex
-                - if @user == @profile_user
-                  = link_to "プロフィールを編集", edit_user_path(params[:name]), class: "btn btn-primary ms-auto m-3"
-                - elsif @user.followings.pluck(:id).include?(@profile_user.id)
-                  = link_to "フォロー中", request.referer, class: "btn btn-primary ms-auto m-3"
+                - if user_signed_in?
+                  - if @user == @profile_user
+                    = link_to "プロフィールを編集", edit_user_path(params[:name]), class: "btn btn-primary ms-auto m-3"
+                  - elsif @user.followings.pluck(:id).include?(@profile_user.id)
+                    = link_to "フォロー中", request.referer, class: "btn btn-primary ms-auto m-3"
+                  - else 
+                    = link_to "フォローする", request.referer, class: "btn btn-primary ms-auto m-3"
                 - else 
-                  = link_to "フォローする", request.referer, class: "btn btn-primary ms-auto m-3"
+                  .m-4
               .fs-5.ms-3
                 | @
                 = @profile_user.name
