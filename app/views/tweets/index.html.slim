@@ -1,3 +1,4 @@
+= render partial: 'layouts/error_message', locals: { model: @tweet }
 div[style="height: 100vh; max-height: 1000px;"]
   .d-flex.justify-content-center.w-100
     main.d-flex.flex-nowrap.flex-column.h-100
@@ -74,9 +75,8 @@ div[style="height: 100vh; max-height: 1000px;"]
                   - else
                     = image_tag "default_i.png", class: "rounded-circle me-2 border", size: '50x50'
                 .vstack
-                  = form_with model: @tweet do |f|
+                  = form_with model: @tweet , local: true do |f|
                     = f.text_area :tweet_text, size: "30x3", class: "form-control border-0"
-                    / textarea.form-control.border-0[rows="3"]
                     ul.nav.fs-4.ms-3.mt-2.mb-2
                       li.nav-item
                         = f.label :image, class: "bi bi-card-image" do
