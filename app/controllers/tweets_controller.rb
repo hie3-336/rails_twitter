@@ -18,6 +18,11 @@ class TweetsController < ApplicationController
     end
   end
 
+  def show
+    @user = current_user
+    @tweet = Tweet.find(params[:id])
+  end
+
   private
 
   def tweet_params
