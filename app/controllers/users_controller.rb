@@ -8,6 +8,7 @@ class UsersController < ApplicationController
     @user_tweets = @profile_user.tweets.with_attached_image
                                 .page(params[:page]).per(5)
                                 .includes(user: { avater_image_attachment: :blob })
+                                .order(created_at: :desc)
 
     @like_tweets = fetch_tweets(@profile_user.likes.pluck(:tweet_id))
     @retweet_tweets = fetch_tweets(@profile_user.retweets.pluck(:tweet_id))
@@ -38,6 +39,7 @@ class UsersController < ApplicationController
     Tweet.where(id: tweet_ids)
          .with_attached_image.page(params[:page]).per(5)
          .includes(user: { avater_image_attachment: :blob })
+         .order(created_at: :desc)
   end
 
   def user_params
