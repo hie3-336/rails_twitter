@@ -23,7 +23,6 @@ class TweetsController < ApplicationController
     else
       render :index, status: :unprocessable_entity
     end
-    
   end
 
   private
