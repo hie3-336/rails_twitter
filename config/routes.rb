@@ -10,7 +10,7 @@ Rails.application.routes.draw do
     sessions: 'users/sessions'
   }
 
-  resources :tweets, only: %i[index]
+  resources :tweets, only: %i[index create]
 
   resources :users, param: :name, only: %i[show edit update]
 
