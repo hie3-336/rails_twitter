@@ -33,9 +33,13 @@ ja:
         introduction: 自己紹介
         profile_image: プロフィール画像
         avater_image: アバター画像
+      tweet:
+        tweet_text: ツイート
+        image: 画像
 
     models:
       user: ユーザー
+
   devise:
     confirmations:
       confirmed: メールアドレスが確認できました。
