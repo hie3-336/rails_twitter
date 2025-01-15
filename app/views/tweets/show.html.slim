@@ -75,9 +75,11 @@ div[style="height: 100vh; max-height: 1000px;"]
                       li.nav-item
                         i.bi.bi-chat
                       li.nav-item
-                        i.bi.bi-arrow-repeat
+                        i.bi.bi-arrow-repeat.me-2
+                        = @tweet.retweets.count
                       li.nav-item
-                        i.bi.bi-heart
+                        i.bi.bi-heart.me-2
+                        = @tweet.likes.count
 
         .h-100
           .border-start[style="width: 260px;"]
