@@ -31,7 +31,7 @@ class TweetsController < ApplicationController
 
   def set_user_and_tweets
     @user = current_user
-    @tweets = Tweet.with_attached_image.page(params[:page]).per(5).includes(user: [ avater_image_attachment: :blob ]).includes(:retweets, :likes).order(created_at: :desc)
+    @tweets = Tweet.with_attached_image.page(params[:page]).per(5).includes(user: [ avater_image_attachment: :blob ]).order(created_at: :desc)
     return if @user.blank?
 
     @following_tweets = @tweets.where(user_id: @user.followings.pluck(:id)).per(5).order(created_at: :desc)
