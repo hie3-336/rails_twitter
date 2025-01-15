@@ -8,8 +8,7 @@ class TweetsController < ApplicationController
   end
 
   def create
-    @tweet = Tweet.new(tweet_params)
-    @tweet.user_id = @user.id
+    @tweet = @user.tweets.build(tweet_params)
 
     if @tweet.save
       redirect_to root_path(tab: 'recommend'), notice: 'ツイートを投稿しました！'
