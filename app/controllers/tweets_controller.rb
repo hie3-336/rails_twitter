@@ -20,6 +20,7 @@ class TweetsController < ApplicationController
   def show
     @user = current_user
     @tweet = Tweet.find(params[:id])
+    @comments = @tweet.comments.includes(user: [ avater_image_attachment: :blob ])
   end
 
   private

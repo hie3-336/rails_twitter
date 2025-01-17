@@ -76,10 +76,34 @@ div[style="height: 100vh; max-height: 1000px;"]
                         i.bi.bi-chat
                       li.nav-item
                         i.bi.bi-arrow-repeat.me-2
-                        = @tweet.retweets.count
+                        = @tweet.retweets_count
                       li.nav-item
                         i.bi.bi-heart.me-2
-                        = @tweet.likes.count
+                        = @tweet.likes_count
+                - if user_signed_in?
+                  .hstack.border-bottom.p-3
+                    = link_to user_path(@user.name, tab: 'tweet') ,class: "mb-auto d-flex" do
+                      - if @user.avater_image.present?
+                        = image_tag @user.avater_image.representation(resize_to_fill: [50, 50]), class: "rounded-circle me-2 border"
+                      - else
+                        = image_tag "default_i.png", class: "rounded-circle me-2 border", size: '50x50'
+                    .vstack
+                      = form_with model: @tweet , local: true do |f|
+                        = f.text_area :tweet_text, size: "30x3", class: "form-control border-0"
+                        ul.nav.fs-4.mt-2
+                          li.nav-item
+                          = f.submit "ツイートする" , class: "btn btn-primary ms-auto me-3"
+                - @comments.each do |comment|
+                  .hstack.p-3.border-bottom
+                    = link_to user_path(comment.user.name, tab: 'tweet') ,class: "mb-auto d-flex" do
+                      - if comment.user.avater_image.present?
+                        = image_tag comment.user.avater_image.representation(resize_to_fill: [50, 50]), class: "rounded-circle me-2 border"
+                      - else
+                        = image_tag "default_i.png", class: "rounded-circle me-2 border", size: '50x50'
+                    .vstack
+                      .fw-bold
+                        = comment.user.name
+                      = comment.comment_content
 
         .h-100
           .border-start[style="width: 260px;"]
