@@ -3,7 +3,10 @@
     = notice
 - if alert
   .alert.alert-danger
-    ul
-      - alert.each do |message|
-        li
-					= message
+    - if alert.is_a?(String)
+      = alert
+    - else 
+      ul
+        - alert.each do |message|
+          li
+            = message
