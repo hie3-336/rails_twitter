@@ -1,13 +1,18 @@
 # frozen_string_literal: true
 
 class TweetsController < ApplicationController
-  before_action :set_user_and_tweets, only: %i[index create]
 
   def index
+    @user = current_user
     @tweet = Tweet.new
+    @tweets = Tweet.with_attached_image.page(params[:page]).per(5).includes(user: [ avater_image_attachment: :blob ]).order(created_at: :desc)
+    return if @user.blank?
+
+    @following_tweets = @tweets.where(user_id: @user.followings.pluck(:id)).per(5).order(created_at: :desc)
   end
 
   def create
+    @user = current_user
     @tweet = @user.tweets.build(tweet_params)
 
     if @tweet.save
@@ -44,13 +49,5 @@ class TweetsController < ApplicationController
 
   def comment_params
     params.require(:comment).permit(:comment_content)
-  end
-
-  def set_user_and_tweets
-    @user = current_user
-    @tweets = Tweet.with_attached_image.page(params[:page]).per(5).includes(user: [ avater_image_attachment: :blob ]).order(created_at: :desc)
-    return if @user.blank?
-
-    @following_tweets = @tweets.where(user_id: @user.followings.pluck(:id)).per(5).order(created_at: :desc)
   end
 end
