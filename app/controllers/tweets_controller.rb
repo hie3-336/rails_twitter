@@ -13,7 +13,7 @@ class TweetsController < ApplicationController
     if @tweet.save
       redirect_to root_path(tab: 'recommend'), notice: 'ツイートを投稿しました！'
     else
-      render :index, status: :unprocessable_entity
+      redirect_to root_path(tab: 'recommend'), alert: @tweet.errors.full_messages
     end
   end
 
@@ -28,13 +28,11 @@ class TweetsController < ApplicationController
     @tweet = Tweet.find(params[:id])
     @comment = @tweet.comments.build(comment_params)
     @comment.user = current_user
-    @comments = @tweet.comments.includes(user: [ avater_image_attachment: :blob ])
-    @user = current_user
 
     if @comment.save
       redirect_to tweet_path(id: params[:id]), notice: 'コメントを投稿しました！'
     else
-      render :show, status: :unprocessable_entity
+      redirect_to tweet_path(id: params[:id]), alert: @comment.errors.full_messages
     end
   end
 

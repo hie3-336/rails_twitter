@@ -3,4 +3,7 @@
     = notice
 - if alert
   .alert.alert-danger
-    = alert
+    ul
+      - alert.each do |message|
+        li
+					= message
