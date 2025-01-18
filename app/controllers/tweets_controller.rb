@@ -20,13 +20,32 @@ class TweetsController < ApplicationController
   def show
     @user = current_user
     @tweet = Tweet.find(params[:id])
+    @comment = Comment.new
     @comments = @tweet.comments.includes(user: [ avater_image_attachment: :blob ])
+  end
+
+  def post_comment
+    @tweet = Tweet.find(params[:id])
+    @comment = @tweet.comments.build(comment_params)
+    @comment.user = current_user
+    @comments = @tweet.comments.includes(user: [ avater_image_attachment: :blob ])
+    @user = current_user
+
+    if @comment.save
+      redirect_to tweet_path(id: params[:id]), notice: 'コメントを投稿しました！'
+    else
+      render :show, status: :unprocessable_entity
+    end
   end
 
   private
 
   def tweet_params
     params.require(:tweet).permit(:tweet_text, :image)
+  end
+
+  def comment_params
+    params.require(:comment).permit(:comment_content)
   end
 
   def set_user_and_tweets
