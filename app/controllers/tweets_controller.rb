@@ -1,11 +1,10 @@
 # frozen_string_literal: true
 
 class TweetsController < ApplicationController
-
   def index
     @user = current_user
     @tweet = Tweet.new
-    @tweets = Tweet.with_attached_image.page(params[:page]).per(5).includes(user: [ avater_image_attachment: :blob ]).order(created_at: :desc)
+    @tweets = Tweet.with_attached_image.page(params[:page]).per(5).includes(user: [avater_image_attachment: :blob]).order(created_at: :desc)
     return if @user.blank?
 
     @following_tweets = @tweets.where(user_id: @user.followings.pluck(:id)).per(5).order(created_at: :desc)
@@ -26,7 +25,7 @@ class TweetsController < ApplicationController
     @user = current_user
     @tweet = Tweet.find(params[:id])
     @comment = Comment.new
-    @comments = @tweet.comments.includes(user: [ avater_image_attachment: :blob ])
+    @comments = @tweet.comments.includes(user: [avater_image_attachment: :blob])
   end
 
   def post_comment
