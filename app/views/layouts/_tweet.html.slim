@@ -5,7 +5,7 @@
 				= image_tag tweet.user.avater_image.representation(resize_to_fill: [50, 50]), class: "rounded-circle me-2 border"
 			- else
 				= image_tag "default_i.png", class: "rounded-circle me-2 border", size: '50x50'
-		.vstack
+		= link_to tweet_path(id: tweet.id), class:"vstack text-decoration-none link-dark" do
 			.fw-bold
 				= tweet.user.name
 			= tweet.tweet_text
