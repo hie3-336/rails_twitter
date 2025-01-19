@@ -13,7 +13,8 @@
 				= image_tag tweet.image.representation(resize_to_fill: [300, 200])
 			ul.nav.fs-6.ms-3.mt-2.d-flex.justify-content-between.w-50
 				li.nav-item
-					i.bi.bi-chat
+					i.bi.bi-chat.me-2 
+					= tweet.comments_count
 				li.nav-item
 					i.bi.bi-arrow-repeat.me-2
 					= tweet.retweets_count
