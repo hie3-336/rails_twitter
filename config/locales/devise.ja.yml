@@ -36,6 +36,8 @@ ja:
       tweet:
         tweet_text: ツイート
         image: 画像
+      comment:
+        comment_content: コメント
 
     models:
       user: ユーザー

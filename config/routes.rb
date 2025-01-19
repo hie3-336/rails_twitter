@@ -10,7 +10,8 @@ Rails.application.routes.draw do
     sessions: 'users/sessions'
   }
 
-  resources :tweets, only: %i[index create]
+  resources :tweets, only: %i[index create show]
+  post '/tweets/:id', to: 'tweets#post_comment'
 
   resources :users, param: :name, only: %i[show edit update]
 

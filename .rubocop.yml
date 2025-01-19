@@ -25,3 +25,4 @@ Hc/RailsSpecificActionName:
   Exclude:
     - app/controllers/users/omniauth_callbacks_controller.rb
     - app/controllers/users/registrations_controller.rb
+    - app/controllers/tweets_controller.rb
