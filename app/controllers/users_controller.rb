@@ -23,7 +23,7 @@ class UsersController < ApplicationController
     if @user.update(user_params)
       redirect_to user_path(@user.name, tab: 'tweet'), notice: 'プロフィールを更新しました！'
     else
-      render :edit, status: :unprocessable_entity
+      redirect_to user_path(@user.name, tab: 'tweet'), alert: @user.errors.full_messages
     end
   end
 
