@@ -44,12 +44,12 @@ class TweetsController < ApplicationController
     @like = Like.find_by(tweet_id: params[:tweet_id], user_id: current_user.id)
     if @like.present?
       if @like.destroy
-        redirect_to request.referer, notice: 'いいねを解除しました。'
+        redirect_to request.referer
       end
     else
       @like = Like.create(tweet_id: params[:tweet_id], user_id: current_user.id)
       if @like.save
-        redirect_to request.referer, notice: 'いいねしました。'
+        redirect_to request.referer
       end
     end
   end
