@@ -12,6 +12,7 @@ Rails.application.routes.draw do
 
   resources :tweets, only: %i[index create show]
   post '/tweets/:id', to: 'tweets#post_comment'
+  post '/like/:tweet_id', to: 'tweets#like' , as: :like
 
   resources :users, param: :name, only: %i[show edit update]
 

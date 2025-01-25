@@ -29,9 +29,11 @@
 					- if user_signed_in?
 						- @like = Like.find_by(tweet_id: tweet.id, user_id: current_user.id)
 						- if @like.present?
-							i.bi.bi-heart-fill.me-2.text-danger
+							= link_to like_path(tweet_id: tweet.id), data: { "turbo-method": :post } do
+								i.bi.bi-heart-fill.me-2.text-danger
 						- else
-							i.bi.bi-heart.me-2
+							= link_to like_path(tweet_id: tweet.id), data: { "turbo-method": :post } do
+								i.bi.bi-heart.me-2
 					- else 
 						i.bi.bi-heart.me-2
 					= tweet.likes_count
