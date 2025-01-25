@@ -34,7 +34,7 @@
               i.bi.bi-heart-fill.me-2.text-danger
           - else
             = link_to like_path(tweet_id: tweet.id), data: { "turbo-method": :post } do
-              i.bi.bi-heart.me-2
+              i.bi.bi-heart.me-2.link-dark
         - else 
           i.bi.bi-heart.me-2
         = tweet.likes_count
