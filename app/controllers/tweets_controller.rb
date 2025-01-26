@@ -43,14 +43,10 @@ class TweetsController < ApplicationController
   def like_tweet
     @like = Like.find_by(tweet_id: params[:tweet_id], user_id: current_user.id)
     if @like.present?
-      if @like.destroy
-        redirect_to request.referer
-      end
+      redirect_to request.referer if @like.destroy
     else
       @like = Like.create(tweet_id: params[:tweet_id], user_id: current_user.id)
-      if @like.save
-        redirect_to request.referer
-      end
+      redirect_to request.referer if @like.save
     end
   end
 
