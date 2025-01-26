@@ -40,7 +40,7 @@ class TweetsController < ApplicationController
     end
   end
 
-  def like
+  def like_tweet
     @like = Like.find_by(tweet_id: params[:tweet_id], user_id: current_user.id)
     if @like.present?
       if @like.destroy
