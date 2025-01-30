@@ -117,25 +117,29 @@ div[style="height: 100vh; max-height: 1000px;"]
                 
               .tab-content
                 div class="#{'show active' if params[:tab] == 'tweet'} tab-pane fade " id="tweeted"
-                  = render partial: 'layouts/tweet', locals: { tweets: @user_tweets }
+                  - @user_tweets.each do |user_tweet|
+                    = render partial: 'layouts/tweet', locals: { tweet: user_tweet }
                 div class="#{'show active' if params[:tab] == 'like'} tab-pane fade " id="liked"
-                  = render partial: 'layouts/tweet', locals: { tweets: @like_tweets }
+                  - @liked_tweets.each do |liked_tweet|
+                    = render partial: 'layouts/tweet', locals: { tweet: liked_tweet }
                 div class="#{'show active' if params[:tab] == 'retweet'} tab-pane fade " id="retweeted"
-                  = render partial: 'layouts/tweet', locals: { tweets: @retweet_tweets }
+                  - @retweeted_tweets.each do |retweeted_tweet|
+                    = render partial: 'layouts/tweet', locals: { tweet: retweeted_tweet }
                 div class="#{'show active' if params[:tab] == 'comment'} tab-pane fade " id="commented"
-                  = render partial: 'layouts/tweet', locals: { tweets: @comment_tweets }
+                  - @commented_tweets.each do |commented_tweet|
+                    = render partial: 'layouts/tweet', locals: { tweet: commented_tweet }
                 div class="#{'show active' if params[:tab] == 'tweet'} tab-pane fade " id="tweeted"
                   .p-1.d-flex.align-items-center.sticky-bottom
                     = paginate @user_tweets, theme: 'bootstrap-5'
                 div class="#{'show active' if params[:tab] == 'like'} tab-pane fade " id="liked"
                   .p-1.d-flex.align-items-center.sticky-bottom
-                    = paginate @like_tweets, theme: 'bootstrap-5'
+                    = paginate @liked_tweets, theme: 'bootstrap-5'
                 div class="#{'show active' if params[:tab] == 'retweet'} tab-pane fade " id="retweeted"
                   .p-1.d-flex.align-items-center.sticky-bottom
-                    = paginate @retweet_tweets, theme: 'bootstrap-5'
+                    = paginate @retweeted_tweets, theme: 'bootstrap-5'
                 div class="#{'show active' if params[:tab] == 'comment'} tab-pane fade " id="commented"
                   .p-1.d-flex.align-items-center.sticky-bottom
-                    = paginate @comment_tweets, theme: 'bootstrap-5'
+                    = paginate @commented_tweets, theme: 'bootstrap-5'
 
         .h-100
           .border-start[style="width: 260px;"]

@@ -10,9 +10,9 @@ class UsersController < ApplicationController
                                 .includes(user: { avater_image_attachment: :blob })
                                 .order(created_at: :desc)
 
-    @like_tweets = fetch_tweets(@profile_user.likes.pluck(:tweet_id))
-    @retweet_tweets = fetch_tweets(@profile_user.retweets.pluck(:tweet_id))
-    @comment_tweets = fetch_tweets(@profile_user.comments.pluck(:tweet_id))
+    @liked_tweets = fetch_tweets(@profile_user.likes.pluck(:tweet_id))
+    @retweeted_tweets = fetch_tweets(@profile_user.retweets.pluck(:tweet_id))
+    @commented_tweets = fetch_tweets(@profile_user.comments.pluck(:tweet_id))
   end
 
   def edit
