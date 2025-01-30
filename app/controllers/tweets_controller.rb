@@ -51,11 +51,11 @@ class TweetsController < ApplicationController
   end
 
   def retweet_tweet
-    @retweet = Retweet.find_by(tweet_id: params[:tweet_id], user_id: current_user.id)
+    @retweet = current_user.retweets.find_by(tweet_id: params[:tweet_id])
     if @retweet.present?
       redirect_to request.referer if @retweet.destroy
     else
-      @retweet = Retweet.create(tweet_id: params[:tweet_id], user_id: current_user.id)
+      @retweet = current_user.retweets.create(tweet_id: params[:tweet_id])
       redirect_to request.referer if @retweet.save
     end
   end
