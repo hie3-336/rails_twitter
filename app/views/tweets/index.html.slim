@@ -85,10 +85,12 @@ div[style="height: 100vh; max-height: 1000px;"]
             .overflow-auto[style="height: calc(70vh - 100px); "]
               .tab-content
                 div class="#{'show active' if params[:tab] == 'recommend'} tab-pane fade " id="for-you"
-                  = render partial: 'layouts/tweet', locals: { tweets: @tweets }
+                  - @tweets.each do |tweet|
+                    = render partial: 'layouts/tweet', locals: { tweet: tweet }
                 div class="#{'show active' if params[:tab] == 'follow'} tab-pane fade " id="following"
                   - if user_signed_in?
-                    = render partial: 'layouts/tweet', locals: { tweets: @following_tweets }
+                    - @following_tweets.each do |following_tweet|
+                      = render partial: 'layouts/tweet', locals: { tweet: following_tweet }
                   - else
                     .border.border-5.text-center.m-5
                       |  こちらのツイートを表示するためには、<br>まずはログインをしてください！

@@ -1,23 +1,39 @@
-- tweets.each do |tweet|
-	.hstack.p-3.border-bottom
-		= link_to user_path(tweet.user.name, tab: 'tweet') ,class: "mb-auto d-flex" do
-			- if tweet.user.avater_image.present?
-				= image_tag tweet.user.avater_image.representation(resize_to_fill: [50, 50]), class: "rounded-circle me-2 border"
-			- else
-				= image_tag "default_i.png", class: "rounded-circle me-2 border", size: '50x50'
-		= link_to tweet_path(id: tweet.id), class:"vstack text-decoration-none link-dark" do
-			.fw-bold
-				= tweet.user.name
-			= tweet.tweet_text
-			- if tweet.image.present?
-				= image_tag tweet.image.representation(resize_to_fill: [300, 200])
-			ul.nav.fs-6.ms-3.mt-2.d-flex.justify-content-between.w-50
-				li.nav-item
-					i.bi.bi-chat.me-2 
-					= tweet.comments_count
-				li.nav-item
-					i.bi.bi-arrow-repeat.me-2
-					= tweet.retweets_count
-				li.nav-item
-					i.bi.bi-heart.me-2
-					= tweet.likes_count
+.hstack.p-3
+  = link_to user_path(tweet.user.name, tab: 'tweet') ,class: "mb-auto d-flex" do
+    - if tweet.user.avater_image.present?
+      = image_tag tweet.user.avater_image.representation(resize_to_fill: [50, 50]), class: "rounded-circle me-2 border"
+    - else
+      = image_tag "default_i.png", class: "rounded-circle me-2 border", size: '50x50'
+  = link_to tweet_path(id: tweet.id), class:"vstack text-decoration-none link-dark" do
+    .fw-bold
+      = tweet.user.name
+    = tweet.tweet_text
+    - if tweet.image.present?
+      = image_tag tweet.image.representation(resize_to_fill: [300, 200])
+.border-bottom
+  ul.nav.fs-6.ms-5.ps-4.mb-2.d-flex.justify-content-between.w-50
+    li.nav-item
+      i.bi.bi-chat.me-2 
+      = tweet.comments_count
+    li.nav-item
+      - if user_signed_in?
+        - @retweet = Retweet.find_by(tweet_id: tweet.id, user_id: current_user.id)
+        - if @retweet.present?
+          i.bi.bi-arrow-repeat.font-weight-bold.me-2.[style=" font-weight:bold; color: #228b22;"]
+        - else
+          i.bi.bi-arrow-repeat.me-2
+      - else 
+        i.bi.bi-arrow-repeat.me-2
+      = tweet.retweets_count
+    li.nav-item
+      - if user_signed_in?
+        - @like = Like.find_by(tweet_id: tweet.id, user_id: current_user.id)
+        - if @like.present?
+          = link_to like_tweet_path(tweet_id: tweet.id), data: { "turbo-method": :post } do
+            i.bi.bi-heart-fill.me-2.text-danger
+        - else
+          = link_to like_tweet_path(tweet_id: tweet.id), data: { "turbo-method": :post } do
+            i.bi.bi-heart.me-2.link-dark
+      - else 
+        i.bi.bi-heart.me-2
+      = tweet.likes_count
