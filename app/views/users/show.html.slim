@@ -117,8 +117,14 @@ div[style="height: 100vh; max-height: 1000px;"]
                 
               .tab-content
                 div class="#{'show active' if params[:tab] == 'tweet'} tab-pane fade " id="tweeted"
-                  - @user_tweets.each do |user_tweet|
-                    = render partial: 'layouts/tweet', locals: { tweet: user_tweet }
+                  - @user_timelines.each do |user_timeline|
+                    - if user_timeline.tweet_id.present?
+                      - user_tweet = Tweet.find(user_timeline.tweet_id)
+                      = render partial: 'layouts/tweet', locals: { tweet: user_tweet }
+                    - else
+                      - user_tweet = Tweet.find(user_timeline.retweet.tweet_id)
+                      - retweet_user = User.find(user_timeline.retweet.user_id)
+                      = render partial: 'layouts/tweet', locals: { tweet: user_tweet , retweet_user: retweet_user}
                 div class="#{'show active' if params[:tab] == 'like'} tab-pane fade " id="liked"
                   - @liked_tweets.each do |liked_tweet|
                     = render partial: 'layouts/tweet', locals: { tweet: liked_tweet }
@@ -130,7 +136,7 @@ div[style="height: 100vh; max-height: 1000px;"]
                     = render partial: 'layouts/tweet', locals: { tweet: commented_tweet }
                 div class="#{'show active' if params[:tab] == 'tweet'} tab-pane fade " id="tweeted"
                   .p-1.d-flex.align-items-center.sticky-bottom
-                    = paginate @user_tweets, theme: 'bootstrap-5'
+                    = paginate @user_timelines, theme: 'bootstrap-5'
                 div class="#{'show active' if params[:tab] == 'like'} tab-pane fade " id="liked"
                   .p-1.d-flex.align-items-center.sticky-bottom
                     = paginate @liked_tweets, theme: 'bootstrap-5'

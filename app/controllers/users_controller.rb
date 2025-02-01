@@ -5,10 +5,10 @@ class UsersController < ApplicationController
   before_action :authenticate_user!, only: %i[edit update]
 
   def show
-    @user_tweets = @profile_user.tweets.with_attached_image
+    @user_timelines = @profile_user.timelines
                                 .page(params[:page]).per(5)
-                                .includes(user: { avater_image_attachment: :blob })
                                 .order(created_at: :desc)
+                                .includes(:retweet)
 
     @liked_tweets = fetch_tweets(@profile_user.likes.pluck(:tweet_id))
     @retweeted_tweets = fetch_tweets(@profile_user.retweets.pluck(:tweet_id))
