@@ -5,7 +5,7 @@ class TweetsController < ApplicationController
     @user = current_user
     @tweet = Tweet.new
     @tweets = Tweet.with_attached_image.page(params[:page]).per(5).includes(user: [avater_image_attachment: :blob]).order(created_at: :desc)
-    @timelines = Timeline.all.page(params[:page]).per(5).order(created_at: :desc)
+    @timelines = Timeline.all.page(params[:page]).per(5).order(created_at: :desc).includes(:retweet)
     return if @user.blank?
 
     @following_tweets = @tweets.where(user_id: @user.followings.pluck(:id)).per(5).order(created_at: :desc)
