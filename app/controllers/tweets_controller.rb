@@ -8,7 +8,7 @@ class TweetsController < ApplicationController
     @timelines = Timeline.all.page(params[:page]).per(5).order(created_at: :desc).includes(:retweet)
     return if @user.blank?
 
-    @following_tweets = @tweets.where(user_id: @user.followings.pluck(:id)).per(5).order(created_at: :desc)
+    @following_timelines = @timelines.where(user_id: @user.followings.pluck(:id)).per(5).order(created_at: :desc)
   end
 
   def create

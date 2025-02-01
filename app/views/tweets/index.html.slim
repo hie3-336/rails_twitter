@@ -94,8 +94,14 @@ div[style="height: 100vh; max-height: 1000px;"]
                       = render partial: 'layouts/tweet', locals: { tweet: tweet , retweet_user: retweet_user}
                 div class="#{'show active' if params[:tab] == 'follow'} tab-pane fade " id="following"
                   - if user_signed_in?
-                    - @following_tweets.each do |following_tweet|
-                      = render partial: 'layouts/tweet', locals: { tweet: following_tweet }
+                    - @following_timelines.each do |following_timeline|
+                      - if following_timeline.tweet_id.present?
+                        - following_tweet = Tweet.find(following_timeline.tweet_id)
+                        = render partial: 'layouts/tweet', locals: { tweet: following_tweet }
+                      - else
+                        - following_tweet = Tweet.find(following_timeline.retweet.tweet_id)
+                        - following_retweet_user = User.find(following_timeline.retweet.user_id)
+                        = render partial: 'layouts/tweet', locals: { tweet: following_tweet , retweet_user: following_retweet_user}
                   - else
                     .border.border-5.text-center.m-5
                       |  こちらのツイートを表示するためには、<br>まずはログインをしてください！
@@ -106,7 +112,7 @@ div[style="height: 100vh; max-height: 1000px;"]
           - if user_signed_in?
             div class="#{'show active' if params[:tab] == 'follow'} tab-pane fade " id="following"
               .p-1.d-flex.align-items-center.sticky-bottom
-                = paginate @following_tweets, theme: 'bootstrap-5'
+                = paginate @following_timelines, theme: 'bootstrap-5'
 
 
         .h-100
