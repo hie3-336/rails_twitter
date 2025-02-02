@@ -16,21 +16,20 @@ class UsersController < ApplicationController
   end
 
   def edit
-    redirect_to user_path(@user.name, tab: 'tweet'), alert: 'こちらのページにはアクセスできません' if @user != @profile_user
+    redirect_to user_path(current_user.name, tab: 'tweet'), alert: 'こちらのページにはアクセスできません' if current_user != @profile_user
   end
 
   def update
-    if @user.update(user_params)
-      redirect_to user_path(@user.name, tab: 'tweet'), notice: 'プロフィールを更新しました！'
+    if current_user.update(user_params)
+      redirect_to user_path(current_user.name, tab: 'tweet'), notice: 'プロフィールを更新しました！'
     else
-      redirect_to user_path(@user.name, tab: 'tweet'), alert: @user.errors.full_messages
+      redirect_to user_path(current_user.name, tab: 'tweet'), alert: current_user.errors.full_messages
     end
   end
 
   private
 
   def set_user
-    @user = current_user
     @profile_user = User.find_by(name: params[:name])
   end
 

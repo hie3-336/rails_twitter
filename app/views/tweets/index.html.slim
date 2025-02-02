@@ -30,7 +30,7 @@ div[style="height: 100vh; max-height: 1000px;"]
                     i.bi.bi-envelope.me-2
                     |  メッセージ 
                 li 
-                  = link_to user_path(@user.name, tab: 'tweet'),class: "d-flex nav-link link-body-emphasis fs-4 align-items-center" do
+                  = link_to user_path(current_user.name, tab: 'tweet'),class: "d-flex nav-link link-body-emphasis fs-4 align-items-center" do
                     i.bi.bi-person.me-2
                     | プロフィール
               li
@@ -40,12 +40,12 @@ div[style="height: 100vh; max-height: 1000px;"]
             .dropdown.mt-auto.mb-3
               - if user_signed_in?
                 a.d-flex.align-items-center.link-body-emphasis.text-decoration-none.dropdown-toggle[href="#" data-bs-toggle="dropdown" aria-expanded="false"]
-                  - if @user.avater_image.present?
-                    = image_tag @user.avater_image.representation(resize_to_fill: [50, 50]), class: "rounded-circle me-2 border"
+                  - if current_user.avater_image.present?
+                    = image_tag current_user.avater_image.representation(resize_to_fill: [50, 50]), class: "rounded-circle me-2 border"
                   - else
                     = image_tag "default_i.png", class: "rounded-circle me-2 border", size: '50x50'
                   strong
-                  = @user.name
+                  = current_user.name
                 ul.dropdown-menu.text-small.shadow
                   li
                     a.dropdown-item[href="#"]
@@ -68,9 +68,9 @@ div[style="height: 100vh; max-height: 1000px;"]
                     = link_to 'フォロー中', root_path(tab: 'follow'), class: 'text-dark text-decoration-none'
             .hstack.border-bottom.p-2
               - if user_signed_in?
-                = link_to user_path(@user.name, tab: 'tweet') ,class: "mb-auto d-flex" do
-                  - if @user.avater_image.present?
-                    = image_tag @user.avater_image.representation(resize_to_fill: [50, 50]), class: "rounded-circle me-2 border"
+                = link_to user_path(current_user.name, tab: 'tweet') ,class: "mb-auto d-flex" do
+                  - if current_user.avater_image.present?
+                    = image_tag current_user.avater_image.representation(resize_to_fill: [50, 50]), class: "rounded-circle me-2 border"
                   - else
                     = image_tag "default_i.png", class: "rounded-circle me-2 border", size: '50x50'
                 .vstack

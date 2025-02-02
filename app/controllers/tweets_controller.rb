@@ -2,17 +2,15 @@
 
 class TweetsController < ApplicationController
   def index
-    @user = current_user
     @tweet = Tweet.new
     @timelines = Timeline.all.page(params[:page]).per(5).order(created_at: :desc).includes(:retweet)
-    return if @user.blank?
+    return if current_user.blank?
 
-    @following_timelines = @timelines.where(user_id: @user.followings.pluck(:id)).per(5).order(created_at: :desc)
+    @following_timelines = @timelines.where(user_id: current_user.followings.pluck(:id)).per(5).order(created_at: :desc)
   end
 
   def create
-    @user = current_user
-    @tweet = @user.tweets.build(tweet_params)
+    @tweet = current_user.tweets.build(tweet_params)
 
     if @tweet.save
       redirect_to root_path(tab: 'recommend'), notice: 'ツイートを投稿しました！'
@@ -22,7 +20,6 @@ class TweetsController < ApplicationController
   end
 
   def show
-    @user = current_user
     @tweet = Tweet.find(params[:id])
     @comment = Comment.new
     @comments = @tweet.comments.includes(user: [avater_image_attachment: :blob])
