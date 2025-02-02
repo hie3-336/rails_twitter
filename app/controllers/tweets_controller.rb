@@ -13,6 +13,9 @@ class TweetsController < ApplicationController
     @tweet = current_user.tweets.build(tweet_params)
 
     if @tweet.save
+      # ツイートが投稿されたら、timelineモデルにtweet_idも付与
+      timeline = @tweet.build_timeline(user: @tweet.user)
+      timeline.save!
       redirect_to root_path(tab: 'recommend'), notice: 'ツイートを投稿しました！'
     else
       redirect_to root_path(tab: 'recommend'), alert: @tweet.errors.full_messages
@@ -50,10 +53,14 @@ class TweetsController < ApplicationController
   def retweet_tweet
     @retweet = current_user.retweets.find_by(tweet_id: params[:tweet_id])
     if @retweet.present?
+      # timelineのretweetも関連付けにより削除される
       redirect_to request.referer if @retweet.destroy
     else
       @retweet = current_user.retweets.create(tweet_id: params[:tweet_id])
-      redirect_to request.referer if @retweet.save
+      @retweet.save
+      # リツイートされたら、timelineモデルにretweet_idも付与
+      timeline = @retweet.build_timeline(user: @retweet.user)
+      redirect_to request.referer if timeline.save
     end
   end
 
