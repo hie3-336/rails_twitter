@@ -6,9 +6,9 @@ class UsersController < ApplicationController
 
   def show
     @user_timelines = @profile_user.timelines
-                                .page(params[:page]).per(5)
-                                .order(created_at: :desc)
-                                .includes(:retweet)
+                                   .page(params[:page]).per(5)
+                                   .order(created_at: :desc)
+                                   .includes(:retweet)
 
     @liked_tweets = fetch_tweets(@profile_user.likes.pluck(:tweet_id))
     @retweeted_tweets = fetch_tweets(@profile_user.retweets.pluck(:tweet_id))
