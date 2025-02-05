@@ -39,6 +39,8 @@ CSV.foreach('db/seeds/tweet_seed.csv', headers: true) do |row|
   tweet.image.attach(io: File.open("db/testimage/#{row['filename']}.jpg"), filename: "#{row['filename']}.png") if row['filename'].present?
 
   tweet.save!
+  timeline = tweet.build_timeline(user: tweet.user)
+  timeline.save!
 end
 
 CSV.foreach('db/seeds/follower_seed.csv', headers: true) do |row|
@@ -66,6 +68,8 @@ CSV.foreach('db/seeds/retweet_seed.csv', headers: true) do |row|
   )
 
   retweet.save!
+  timeline = retweet.build_timeline(user: retweet.user)
+  timeline.save!
 end
 
 CSV.foreach('db/seeds/comment_seed.csv', headers: true) do |row|
