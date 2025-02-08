@@ -27,6 +27,15 @@ class UsersController < ApplicationController
     end
   end
 
+  def follow_user
+    if current_user.followings.pluck(:id).include?(params[:user_id])
+    else
+      follower = Follower.create(follower_id: current_user.id, followed_id: params[:user_id])
+      follower.save
+      redirect_to request.referer
+    end
+  end
+
   private
 
   def set_user
