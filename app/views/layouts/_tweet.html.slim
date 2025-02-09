@@ -9,7 +9,7 @@
       i.bi.bi-three-dots-vertical
     ul.dropdown-menu.text-small.shadow
       li
-        - if user_signed_in?
+        - if user_signed_in? && current_user.id != tweet.user.id
           = link_to follow_user_path(user_id: tweet.user.id), data: { "turbo-method": :post }, class: "dropdown-item" do
             = tweet.user.name
             - if current_user.followings.pluck(:id).include?(tweet.user.id)
