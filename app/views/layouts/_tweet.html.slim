@@ -1,8 +1,16 @@
-- if defined? retweet_user
-  .mt-2.ms-3.text-secondary
-    i.bi.bi-arrow-repeat.me-2.link-dark
-    = retweet_user.name
-    | さんがリツイート
+.d-flex
+  - if defined? retweet_user
+    .mt-2.ms-3.text-secondary.d-flex
+      i.bi.bi-arrow-repeat.me-2.link-dark
+      = retweet_user.name
+      | さんがリツイート
+  .dropdown.me-3.mt-2.ms-auto
+    .dropdown-toggle.[href="#" data-bs-toggle="dropdown" aria-expanded="false"]
+      i.bi.bi-three-dots-vertical
+    ul.dropdown-menu.text-small.shadow
+      li
+        a.dropdown-item[href="#"]
+          |  フォローする
 .hstack.p-3
   = link_to user_path(tweet.user.name, tab: 'tweet') ,class: "mb-auto d-flex" do
     - if tweet.user.avater_image.present?
