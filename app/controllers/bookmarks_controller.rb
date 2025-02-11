@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class BookmarksController < ApplicationController
   include FetchTweets
   before_action :authenticate_user!
