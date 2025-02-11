@@ -9,3 +9,5 @@
 .btn-primary {
  background-color: #1da1f2;
 }
+
+.dropdown-toggle::after { display: none; }

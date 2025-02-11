@@ -27,6 +27,16 @@ class UsersController < ApplicationController
     end
   end
 
+  def follow_user
+    follower = Follower.find_by(follower_id: current_user.id, followed_id: params[:user_id])
+    if follower.present?
+      redirect_to request.referer if follower.destroy
+    else
+      follower = Follower.create(follower_id: current_user.id, followed_id: params[:user_id])
+      redirect_to request.referer if follower.save
+    end
+  end
+
   private
 
   def set_user

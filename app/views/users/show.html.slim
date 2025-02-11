@@ -76,9 +76,9 @@ div[style="height: 100vh; max-height: 1000px;"]
                   - if current_user == @profile_user
                     = link_to "プロフィールを編集", edit_user_path(params[:name]), class: "btn btn-primary ms-auto m-3"
                   - elsif current_user.followings.pluck(:id).include?(@profile_user.id)
-                    = link_to "フォロー中", request.referer, class: "btn btn-primary ms-auto m-3"
+                    = link_to "フォロー中", follow_user_path(user_id: @profile_user.id), data: { "turbo-method": :post }, class: "btn btn-primary ms-auto m-3"
                   - else 
-                    = link_to "フォローする", request.referer, class: "btn btn-primary ms-auto m-3"
+                    = link_to "フォローする", follow_user_path(user_id: @profile_user.id), data: { "turbo-method": :post }, class: "btn btn-primary ms-auto m-3"
                 - else 
                   .m-4
               .fs-5.ms-3
