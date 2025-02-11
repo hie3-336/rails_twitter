@@ -82,6 +82,15 @@ CSV.foreach('db/seeds/comment_seed.csv', headers: true) do |row|
   comment.save!
 end
 
+CSV.foreach('db/seeds/like_seed.csv', headers: true) do |row|
+  bookmark = Bookmark.create(
+    tweet_id: row['tweet_id'],
+    user_id: row['user_id']
+  )
+
+  bookmark.save!
+end
+
 # 単一登録用
 # user = User.create(name: 'テストユーザー', email: 'test@testtest.com', password: 'password', phone_number: '08000000000', birthday: '1993-11-10')
 # user.save!
