@@ -1,8 +1,27 @@
-- if defined? retweet_user
-  .mt-2.ms-3.text-secondary
-    i.bi.bi-arrow-repeat.me-2.link-dark
-    = retweet_user.name
-    | さんがリツイート
+.d-flex
+  - if defined? retweet_user
+    .mt-2.ms-3.text-secondary.d-flex
+      i.bi.bi-arrow-repeat.me-2.link-dark
+      = retweet_user.name
+      | さんがリツイート
+  .dropdown.me-3.mt-2.ms-auto
+    .dropdown-toggle.[href="#" data-bs-toggle="dropdown" aria-expanded="false"]
+      i.bi.bi-three-dots-vertical
+    ul.dropdown-menu.text-small.shadow
+      li
+        - if user_signed_in? && current_user.id != tweet.user.id
+          = link_to follow_user_path(user_id: tweet.user.id), data: { "turbo-method": :post }, class: "dropdown-item" do
+            = tweet.user.name
+            - if current_user.followings.pluck(:id).include?(tweet.user.id)
+              | さんのフォローを解除
+            - else
+              | さんをフォロー
+        - else 
+          .text-muted.dropdown-item.disabled
+            = tweet.user.name
+            | さんをフォロー
+
+
 .hstack.p-3
   = link_to user_path(tweet.user.name, tab: 'tweet') ,class: "mb-auto d-flex" do
     - if tweet.user.avater_image.present?
