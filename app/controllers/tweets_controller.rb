@@ -64,6 +64,16 @@ class TweetsController < ApplicationController
     end
   end
 
+  def bookmark_tweet
+    @bookmark = current_user.bookmarks.find_by(tweet_id: params[:tweet_id])
+    if @bookmark.present?
+      redirect_to request.referer if @bookmark.destroy
+    else
+      @bookmark = current_user.bookmarks.create(tweet_id: params[:tweet_id])
+      redirect_to request.referer if @bookmark.save
+    end
+  end
+
   private
 
   def tweet_params

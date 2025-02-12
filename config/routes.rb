@@ -14,9 +14,11 @@ Rails.application.routes.draw do
   post '/tweets/:id', to: 'tweets#post_comment'
   post '/like/:tweet_id', to: 'tweets#like_tweet', as: :like_tweet
   post '/retweet/:tweet_id', to: 'tweets#retweet_tweet', as: :retweet_tweet
+  post '/bookmark/:tweet_id', to: 'tweets#bookmark_tweet', as: :bookmark_tweet
   post '/follow/:user_id', to: 'users#follow_user', as: :follow_user
 
   resources :users, param: :name, only: %i[show edit update]
+  resources :bookmarks, only: [:index]
 
   resources :tasks
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

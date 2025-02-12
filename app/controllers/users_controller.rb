@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class UsersController < ApplicationController
+  include FetchTweets
   before_action :set_user
   before_action :authenticate_user!, only: %i[edit update]
 
@@ -41,14 +42,6 @@ class UsersController < ApplicationController
 
   def set_user
     @profile_user = User.find_by(name: params[:name])
-  end
-
-  # 各種ツイート取得処理
-  def fetch_tweets(tweet_ids)
-    Tweet.where(id: tweet_ids)
-         .with_attached_image.page(params[:page]).per(5)
-         .includes(user: { avater_image_attachment: :blob })
-         .order(created_at: :desc)
   end
 
   def user_params
