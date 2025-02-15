@@ -63,16 +63,20 @@ div[style="height: 100vh; max-height: 1000px;"]
             .overflow-auto[style="height: calc(100vh - 100px); "]
               .tab-content
                 - current_user.followers.includes(:avater_image_attachment).each do |follower|
-                  .hstack
-                    - if follower.avater_image.present?
-                      = image_tag follower.avater_image.representation(resize_to_fill: [50, 50]), class: "rounded-circle m-2 border"
-                    - else
-                      = image_tag "default_i.png", class: "rounded-circle m-2 border", size: '50x50'
-                    .vstack.m-2
-                      = follower.name 
-                      .m-1
-                        | aaaaaaa
+                  = link_to show_chatroom_path(send_user_id: follower.id) ,class:"text-decoration-none link-dark" do
+                    .hstack
+                      - if follower.avater_image.present?
+                        = image_tag follower.avater_image.representation(resize_to_fill: [50, 50]), class: "rounded-circle m-2 border"
+                      - else
+                        = image_tag "default_i.png", class: "rounded-circle m-2 border", size: '50x50'
+                      .vstack.m-2
+                        .fw-bold
+                          = follower.name 
+                        .m-1
+                          | aaaaaaa
                   .border-bottom
 
         .h-100
           .border-start[style="width: 520px;"]
+            - if @test.present?
+              = @test

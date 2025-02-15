@@ -22,6 +22,7 @@ Rails.application.routes.draw do
   resources :bookmarks, only: [:index]
 
   resources :directmessages, only: [:index]
+  get '/directmessages/:send_user_id', to: 'directmessages#show_chatroom', as: :show_chatroom
 
   resources :tasks
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
