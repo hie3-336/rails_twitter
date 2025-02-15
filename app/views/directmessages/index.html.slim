@@ -62,7 +62,7 @@ div[style="height: 100vh; max-height: 1000px;"]
           .border-bottom[style="width: 400px;"]    
             .overflow-auto[style="height: calc(100vh - 100px); "]
               .tab-content
-                - current_user.followers.includes(:avater_image_attachment).each do |follower|
+                - current_user.followers.includes(avater_image_attachment: :blob).each do |follower|
                   = link_to show_chatroom_path(send_user_id: follower.id) ,class:"text-decoration-none link-dark" do
                     .hstack
                       - if follower.avater_image.present?
