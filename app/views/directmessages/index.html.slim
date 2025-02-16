@@ -62,6 +62,8 @@ div[style="height: 100vh; max-height: 1000px;"]
           .border-bottom[style="width: 400px;"]    
             .overflow-auto[style="height: calc(100vh - 100px); "]
               .tab-content
+                .m-3.fs-5.fw-bold
+                  | メッセージ
                 - current_user.followers.includes(avater_image_attachment: :blob).each do |follower|
                   = link_to show_chatroom_path(send_user_id: follower.id) ,class:"text-decoration-none link-dark" do
                     .hstack
@@ -76,14 +78,21 @@ div[style="height: 100vh; max-height: 1000px;"]
                           | aaaaaaa
                   .border-bottom
 
-        .h-100
+        .h-100.mb-auto
           .border-start[style="width: 520px;"]
-            - if @send_user_id.present?
+            - if @send_user.present?
+              .hstack
+                - if @send_user.avater_image.present?
+                  = image_tag @send_user.avater_image.representation(resize_to_fill: [30, 30]), class: "rounded-circle m-2 border"
+                - else
+                  = image_tag "default_i.png", class: "rounded-circle m-2 border", size: '30x30'
+                .fw-bold
+                  = @send_user.name
+
               - @direct_messages.each do |direct_message|
-                .m-1
-                  = direct_message.send_user_id 
-                  | a
-                  = direct_message.receive_user_id 
-                  | a
-                  = direct_message.message_content
-                .border-bottom 
+                - if direct_message.receive_user_id == @send_user.id 
+                  .m-1.mb-3.border.rounded-4.border-white.p-2.w-75.bg-light
+                    = direct_message.message_content
+                - else
+                  .m-1.mb-3.border.rounded-4.border-white.p-2.w-75.text-white.ms-auto[style="background-color: #1da1f2;"]
+                    = direct_message.message_content
