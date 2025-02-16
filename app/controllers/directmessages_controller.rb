@@ -6,8 +6,9 @@ class DirectmessagesController < ApplicationController
   end
 
   def show_chatroom
-    @test = params[:send_user_id]
-
+    @send_user_id = params[:send_user_id]
+    @direct_messages = Directmessage.where(send_user_id: @send_user_id, receive_user_id: current_user.id)
+    .or(Directmessage.where(send_user_id: current_user.id, receive_user_id: @send_user_id))
     render :index
   end
 

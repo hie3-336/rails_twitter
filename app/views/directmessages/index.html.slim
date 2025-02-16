@@ -78,5 +78,12 @@ div[style="height: 100vh; max-height: 1000px;"]
 
         .h-100
           .border-start[style="width: 520px;"]
-            - if @test.present?
-              = @test
+            - if @send_user_id.present?
+              - @direct_messages.each do |direct_message|
+                .m-1
+                  = direct_message.send_user_id 
+                  | a
+                  = direct_message.receive_user_id 
+                  | a
+                  = direct_message.message_content
+                .border-bottom 
