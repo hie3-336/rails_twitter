@@ -12,7 +12,7 @@ class DirectmessagesController < ApplicationController
     if @direct_message.save
       redirect_to request.referer
     else
-      redirect_to root_path
+      redirect_to request.referer, alert: @direct_message.errors.full_messages
     end
   end
 
