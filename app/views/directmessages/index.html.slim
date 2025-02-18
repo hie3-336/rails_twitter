@@ -88,15 +88,22 @@ div[style="height: 100vh; max-height: 1000px;"]
                   = image_tag "default_i.png", class: "rounded-circle m-2 border", size: '30x30'
                 .fw-bold
                   = @send_user.name
+              .overflow-auto[style="height: calc(80vh - 100px); "]
 
-              - @direct_messages.each do |direct_message|
-                - if direct_message.receive_user_id == @send_user.id 
-                  .m-1.border.rounded-4.border-white.p-2.w-75.bg-light
-                    = direct_message.message_content
-                  .text-muted.ms-3.mb-4[style="font-size: 14px;"]
-                    = l direct_message.created_at
-                - else
-                  .m-1.border.rounded-4.border-white.p-2.w-75.text-white.ms-auto[style="background-color: #1da1f2;"]
-                    = direct_message.message_content
-                  .text-muted.text-end.me-2.mb-4[style="font-size: 14px;"]
-                    = l direct_message.created_at
+                - @direct_messages.each do |direct_message|
+                  - if direct_message.receive_user_id == @send_user.id 
+                    .m-1.ms-2.border.rounded-4.border-white.p-2.w-75.bg-light
+                      = direct_message.message_content
+                    .text-muted.ms-3.mb-4[style="font-size: 14px;"]
+                      = l direct_message.created_at
+                  - else
+                    .m-1.me-2.border.rounded-4.border-white.p-2.w-75.text-white.ms-auto[style="background-color: #1da1f2;"]
+                      = direct_message.message_content
+                    .text-muted.text-end.me-2.mb-4[style="font-size: 14px;"]
+                      = l direct_message.created_at
+              .m-2
+                = form_with model: @direct_message ,url: post_message_path(send_user_id: params[:send_user_id]),local: true do |f|
+                  .position-relative
+                    = f.text_area :message_content, size: "30x3", class: "form-control border-0 bg-light"
+                    = button_tag type: "submit", class: "btn btn-default position-absolute bottom-0 end-0" do
+                      i.bi.bi-send
