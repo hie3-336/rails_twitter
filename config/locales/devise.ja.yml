@@ -160,5 +160,6 @@ ja:
         other: "%{count} 件のエラーが発生したため %{resource} は保存されませんでした。"
   time:
     formats:
-      default: "%Y年%m月%d日 %H:%M:%S"
-      short: "%m月%d日"
+      default: "%Y年%-m月%-d日 %H:%M:%S"
+      short_ymd: "%Y年%-m月%-d日"
+      short_md: "%-m月%-d日"

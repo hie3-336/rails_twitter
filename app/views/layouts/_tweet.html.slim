@@ -33,7 +33,7 @@
       .fw-bold
         = tweet.user.name
       .ms-3.text-muted
-        = l tweet.created_at, format: :short
+        = render partial: 'layouts/time', locals: { model: tweet }
     = tweet.tweet_text
     - if tweet.image.present?
       = image_tag tweet.image.representation(resize_to_fill: [300, 200])
