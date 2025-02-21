@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class DirectmessagesController < ApplicationController
   before_action :authenticate_user!
 
@@ -23,7 +25,7 @@ class DirectmessagesController < ApplicationController
     # フォロワーかどうか判定し、異なる場合はDMメニューにリダイレクトさせてチャットルームを表示させない
     if current_user.followers.pluck(:id).include?(@send_user.id)
       @direct_messages = Directmessage.where(send_user_id: @send_user.id, receive_user_id: current_user.id)
-      .or(Directmessage.where(send_user_id: current_user.id, receive_user_id: @send_user.id))
+                                      .or(Directmessage.where(send_user_id: current_user.id, receive_user_id: @send_user.id))
       render :index
     else
       redirect_to directmessages_path, alert: 'フォロワーでない場合はメッセージを送ることができません'
@@ -35,5 +37,4 @@ class DirectmessagesController < ApplicationController
   def directmessage_params
     params.require(:directmessage).permit(:message_content)
   end
-
 end

@@ -30,8 +30,8 @@ class User < ApplicationRecord
   has_many :followings, through: :active_relationships, source: :followed
   has_many :followers, through: :passive_relationships, source: :follower
 
-  has_many :send_user_relationships, class_name: 'Directmessage', foreign_key: 'send_user_id'
-  has_many :receive_user_relationships, class_name: 'Directmessage', foreign_key: 'send_user_id'
+  has_many :send_user_relationships, class_name: 'Directmessage', foreign_key: 'send_user_id', dependent: :destroy, inverse_of: 'send_user'
+  has_many :receive_user_relationships, class_name: 'Directmessage', foreign_key: 'send_user_id', dependent: :destroy, inverse_of: 'receive_user'
 
   # プロフィール画像
   has_one_attached :avater_image
