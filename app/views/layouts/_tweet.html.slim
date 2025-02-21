@@ -20,7 +20,11 @@
           .text-muted.dropdown-item.disabled
             = tweet.user.name
             | さんをフォロー
-
+      - if user_signed_in? && current_user.followers.pluck(:id).include?(tweet.user.id)
+        li
+          = link_to show_chatroom_path(send_user_id: tweet.user.id), class: "dropdown-item" do
+            = tweet.user.name
+            | さんにメッセージ
 
 .hstack.p-3
   = link_to user_path(tweet.user.name, tab: 'tweet') ,class: "mb-auto d-flex" do
