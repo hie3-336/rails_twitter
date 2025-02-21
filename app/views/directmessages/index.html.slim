@@ -65,6 +65,7 @@ div[style="height: 100vh; max-height: 1000px;"]
                 .m-3.fs-5.fw-bold
                   | メッセージ
                 - current_user.followers.includes(avater_image_attachment: :blob).each do |follower|
+                  - @last_dm = Directmessage.where(send_user_id: follower.id, receive_user_id: current_user.id).or(Directmessage.where(send_user_id: current_user.id, receive_user_id: follower.id)).order(created_at: :desc).first
                   = link_to show_chatroom_path(send_user_id: follower.id) ,class:"text-decoration-none link-dark" do
                     .hstack
                       - if follower.avater_image.present?
@@ -72,10 +73,17 @@ div[style="height: 100vh; max-height: 1000px;"]
                       - else
                         = image_tag "default_i.png", class: "rounded-circle m-2 border", size: '50x50'
                       .vstack.m-2
-                        .fw-bold
-                          = follower.name 
-                        .m-1
-                          | aaaaaaa
+                        - if @last_dm.present?
+                          .hstack 
+                            .fw-bold
+                              = follower.name
+                            .text-muted.ms-3
+                              = l @last_dm.created_at
+                          .m-1.text-muted
+                            = @last_dm.message_content.truncate(20)
+                        - else 
+                          .fw-bold
+                            = follower.name
                   .border-bottom
 
         .h-100.mb-auto
