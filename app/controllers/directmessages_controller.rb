@@ -19,9 +19,15 @@ class DirectmessagesController < ApplicationController
   def show_chatroom
     @direct_message = Directmessage.new
     @send_user = User.find_by(id: params[:send_user_id])
-    @direct_messages = Directmessage.where(send_user_id: @send_user.id, receive_user_id: current_user.id)
-    .or(Directmessage.where(send_user_id: current_user.id, receive_user_id: @send_user.id))
-    render :index
+
+    # フォロワーかどうか判定し、異なる場合はDMメニューにリダイレクトさせてチャットルームを表示させない
+    if current_user.followers.pluck(:id).include?(@send_user.id)
+      @direct_messages = Directmessage.where(send_user_id: @send_user.id, receive_user_id: current_user.id)
+      .or(Directmessage.where(send_user_id: current_user.id, receive_user_id: @send_user.id))
+      render :index
+    else
+      redirect_to directmessages_path, alert: 'フォロワーでない場合はメッセージを送ることができません'
+    end
   end
 
   private
