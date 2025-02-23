@@ -8,9 +8,8 @@ class DirectMessagesController < ApplicationController
   end
 
   def create
-    @direct_message = DirectMessage.new(direct_message_params)
+    @direct_message = current_user.send_messages.build(direct_message_params)
     @direct_message.receive_user_id = params[:send_user_id]
-    @direct_message.send_user_id = current_user.id
     if @direct_message.save
       redirect_to request.referer
     else
