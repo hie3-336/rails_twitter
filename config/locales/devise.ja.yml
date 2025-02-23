@@ -38,8 +38,8 @@ ja:
         image: 画像
       comment:
         comment_content: コメント
-      directmessage:
-        message_content: メッセージ
+      direct_message:
+        content: メッセージ
 
     models:
       user: ユーザー

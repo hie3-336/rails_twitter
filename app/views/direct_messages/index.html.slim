@@ -65,7 +65,7 @@ div[style="height: 100vh; max-height: 1000px;"]
                 .m-3.fs-5.fw-bold
                   | メッセージ
                 - current_user.followers.includes(avater_image_attachment: :blob).each do |follower|
-                  - @last_dm = Directmessage.where(send_user_id: follower.id, receive_user_id: current_user.id).or(Directmessage.where(send_user_id: current_user.id, receive_user_id: follower.id)).order(created_at: :desc).first
+                  - @last_dm = DirectMessage.where(send_user_id: follower.id, receive_user_id: current_user.id).or(DirectMessage.where(send_user_id: current_user.id, receive_user_id: follower.id)).order(created_at: :desc).first
                   = link_to show_chatroom_path(send_user_id: follower.id) ,class:"text-decoration-none link-dark" do
                     .hstack
                       - if follower.avater_image.present?
@@ -80,7 +80,7 @@ div[style="height: 100vh; max-height: 1000px;"]
                             .text-muted.ms-3
                               = l @last_dm.created_at
                           .m-1.text-muted
-                            = @last_dm.message_content.truncate(20)
+                            = @last_dm.content.truncate(20)
                         - else 
                           .fw-bold
                             = follower.name
@@ -101,17 +101,17 @@ div[style="height: 100vh; max-height: 1000px;"]
                 - @direct_messages.each do |direct_message|
                   - if direct_message.send_user_id == @send_user.id 
                     .m-1.ms-2.border.rounded-4.border-white.p-2.w-75.bg-light
-                      = direct_message.message_content
+                      = direct_message.content
                     .text-muted.ms-3.mb-4[style="font-size: 14px;"]
                       = l direct_message.created_at
                   - else
                     .m-1.me-2.border.rounded-4.border-white.p-2.w-75.text-white.ms-auto[style="background-color: #1da1f2;"]
-                      = direct_message.message_content
+                      = direct_message.content
                     .text-muted.text-end.me-2.mb-4[style="font-size: 14px;"]
                       = l direct_message.created_at
               .m-2.mt-5
                 = form_with model: @direct_message ,url: post_message_path(send_user_id: params[:send_user_id]),local: true do |f|
                   .position-relative
-                    = f.text_area :message_content, size: "30x3", class: "form-control border-0 bg-light", placeholder:'新しいメッセージを作成'
+                    = f.text_area :content, size: "30x3", class: "form-control border-0 bg-light", placeholder:'新しいメッセージを作成'
                     = button_tag type: "submit", class: "btn btn-default position-absolute bottom-0 end-0" do
                       i.bi.bi-send

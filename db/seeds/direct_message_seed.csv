@@ -1,4 +1,4 @@
-send_user_id,receive_user_id,message_content
+send_user_id,receive_user_id,content
 1,2,明日良かったら一緒に遊ばない？
 2,1,いいね！何時ごろにする？
 1,2,13時からウチでよろしく！

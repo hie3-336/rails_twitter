@@ -91,14 +91,14 @@ CSV.foreach('db/seeds/like_seed.csv', headers: true) do |row|
   bookmark.save!
 end
 
-CSV.foreach('db/seeds/directmessage_seed.csv', headers: true) do |row|
-  directmessage = Directmessage.create(
+CSV.foreach('db/seeds/direct_message_seed.csv', headers: true) do |row|
+  direct_message = DirectMessage.create(
     send_user_id: row['send_user_id'],
     receive_user_id: row['receive_user_id'],
-    message_content: row['message_content']
+    content: row['content']
   )
 
-  directmessage.save!
+  direct_message.save!
 end
 
 # 単一登録用

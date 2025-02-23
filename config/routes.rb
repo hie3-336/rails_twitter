@@ -21,9 +21,9 @@ Rails.application.routes.draw do
 
   resources :bookmarks, only: [:index]
 
-  resources :directmessages, only: %i[index]
-  get '/directmessages/:send_user_id', to: 'directmessages#show_chatroom', as: :show_chatroom
-  post '/directmessages/:send_user_id', to: 'directmessages#post_message', as: :post_message
+  resources :direct_messages, only: %i[index]
+  get '/direct_messages/:send_user_id', to: 'direct_messages#show_chatroom', as: :show_chatroom
+  post '/direct_messages/:send_user_id', to: 'direct_messages#post_message', as: :post_message
 
   resources :tasks
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

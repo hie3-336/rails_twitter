@@ -2,6 +2,6 @@
 
 require 'rails_helper'
 
-RSpec.describe Directmessage, type: :model do
+RSpec.describe Direct_message, type: :model do
   pending "add some examples to (or delete) #{__FILE__}"
 end

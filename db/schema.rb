@@ -62,10 +62,10 @@ ActiveRecord::Schema[7.0].define(version: 2025_02_11_100043) do
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
-  create_table "directmessages", force: :cascade do |t|
+  create_table "direct_messages", force: :cascade do |t|
     t.integer "send_user_id"
     t.integer "receive_user_id"
-    t.string "message_content"
+    t.string "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
