@@ -7,7 +7,7 @@ class DirectMessagesController < ApplicationController
     @direct_message = DirectMessage.new
   end
 
-  def post_message
+  def create
     @direct_message = DirectMessage.new(direct_message_params)
     @direct_message.receive_user_id = params[:send_user_id]
     @direct_message.send_user_id = current_user.id

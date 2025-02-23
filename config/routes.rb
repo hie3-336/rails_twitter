@@ -23,7 +23,7 @@ Rails.application.routes.draw do
 
   resources :direct_messages, only: %i[index]
   get '/direct_messages/:send_user_id', to: 'direct_messages#show_chatroom', as: :show_chatroom
-  post '/direct_messages/:send_user_id', to: 'direct_messages#post_message', as: :post_message
+  post '/direct_messages/:send_user_id', to: 'direct_messages#create', as: :post_message
 
   resources :tasks
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
