@@ -77,10 +77,10 @@ class TweetsController < ApplicationController
   private
 
   def tweet_params
-    params.require(:tweet).permit(:tweet_text, :image)
+    params.require(:tweet).permit(:content, :image)
   end
 
   def comment_params
-    params.require(:comment).permit(:comment_content)
+    params.require(:comment).permit(:content)
   end
 end

@@ -72,7 +72,7 @@ div[style="height: 100vh; max-height: 1000px;"]
                         = image_tag "default_i.png", class: "rounded-circle me-2 border", size: '50x50'
                     .vstack
                       = form_with model: @comment ,url: tweet_path(id: params[:id]), local: true do |f|
-                        = f.text_area :comment_content, size: "30x3", class: "form-control border-0"
+                        = f.text_area :content, size: "30x3", class: "form-control border-0"
                         ul.nav.fs-4.mt-2
                           li.nav-item
                           = f.submit "コメントする" , class: "btn btn-primary ms-auto me-3"
@@ -86,7 +86,7 @@ div[style="height: 100vh; max-height: 1000px;"]
                     .vstack
                       .fw-bold
                         = comment.user.name
-                      = comment.comment_content
+                      = comment.content
 
         .h-100
           .border-start[style="width: 260px;"]
