@@ -1,0 +1,4 @@
+- if model.created_at.year == Time.now.year 
+  = l model.created_at, format: :short_md
+- else 
+  = l model.created_at, format: :short_ymd

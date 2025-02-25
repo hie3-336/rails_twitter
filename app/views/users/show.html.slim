@@ -26,9 +26,13 @@ div[style="height: 100vh; max-height: 1000px;"]
                     i.bi.bi-bell.me-2
                     |  通知 
                 li
-                  a.d-flex.nav-link.link-body-emphasis.fs-4.align-items-center[href="#"]
+                  = link_to direct_messages_path, class: "d-flex nav-link link-body-emphasis fs-4 align-items-center" do
                     i.bi.bi-envelope.me-2
                     |  メッセージ 
+                li 
+                  = link_to bookmarks_path, class: "d-flex nav-link link-body-emphasis fs-4 align-items-center" do
+                    i.bi.bi-bookmark.me-2
+                    | ブックマーク
                 li 
                   = link_to user_path(current_user.name, tab: 'tweet') ,class: "d-flex nav-link link-body-emphasis fs-4 align-items-center" do
                     i.bi.bi-person.me-2

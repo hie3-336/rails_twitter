@@ -1,0 +1,117 @@
+div[style="height: 100vh; max-height: 1000px;"]
+  .d-flex.justify-content-center.w-100
+    main.d-flex.flex-nowrap.flex-column.h-100
+      header.d-flex.flex-wrap.align-items-center.justify-content-center.justify-content-md-between.py-3.border-bottom.w-100
+        = link_to root_path(tab: 'recommend'), class: "d-flex nav-link fs-3 align-items-center" do
+          i.bi.bi-twitter.mx-3
+          | Hietter
+        .col-md-3.mb-2.mb-md-0
+        .col-md-3.text-end
+          - if user_signed_in?
+            = link_to "ログアウト", destroy_user_session_path, class: "btn btn-outline-primary me-2" , data: { turbo_method: :delete }
+          - else
+            = link_to "ログイン", new_user_session_path, class: "btn btn-outline-primary me-2"
+            = link_to "新規登録", new_user_registration_path, class: "btn btn-primary"
+      .hstack
+        .p-1.border-end
+          .d-flex.flex-column.align-items-start.flex-shrink-0.p-3.bg-body-tertiary[style="width: 260px; height: calc(100vh - 70px); min-height: 650px;"]
+            ul.nav.nav-pills.navbar-nav.flex-column.gap-0.row-gap-3
+              li
+                .d-flex.nav-link.fs-4.align-items-center
+                  i.bi.bi-house.me-2
+                  |  ホーム
+              - if user_signed_in? 
+                li
+                  a.d-flex.nav-link.link-body-emphasis.fs-4.align-items-center[href="#"]
+                    i.bi.bi-bell.me-2
+                    |  通知
+                li
+                  a.d-flex.nav-link.link-body-emphasis.fs-4.align-items-center[href="#"]
+                    i.bi.bi-envelope.me-2
+                    |  メッセージ 
+                li 
+                  = link_to bookmarks_path, class: "d-flex nav-link link-body-emphasis fs-4 align-items-center" do
+                    i.bi.bi-bookmark.me-2
+                    | ブックマーク
+                li 
+                  = link_to user_path(current_user.name, tab: 'tweet'),class: "d-flex nav-link link-body-emphasis fs-4 align-items-center" do
+                    i.bi.bi-person.me-2
+                    | プロフィール
+              li
+                a.d-flex.nav-link.link-body-emphasis.fs-4.align-items-center[href="#"]
+                  i.bi.bi-gear.me-2
+                  |  設定 
+            .dropdown.mt-auto.mb-3
+              - if user_signed_in?
+                a.d-flex.align-items-center.link-body-emphasis.text-decoration-none.dropdown-toggle[href="#" data-bs-toggle="dropdown" aria-expanded="false"]
+                  - if current_user.avater_image.present?
+                    = image_tag current_user.avater_image.representation(resize_to_fill: [50, 50]), class: "rounded-circle me-2 border"
+                  - else
+                    = image_tag "default_i.png", class: "rounded-circle me-2 border", size: '50x50'
+                  strong
+                  = current_user.name
+                ul.dropdown-menu.text-small.shadow
+                  li
+                    a.dropdown-item[href="#"]
+                      |  プロフィール
+              - else
+                .fs-5
+                  |  ゲスト
+
+        .h-100.border-end.mb-auto
+          .border-bottom[style="width: 400px;"]    
+            .overflow-auto[style="height: calc(100vh - 100px); "]
+              .tab-content
+                .m-3.fs-5.fw-bold
+                  | メッセージ
+                - current_user.followers.includes(avater_image_attachment: :blob).each do |follower|
+                  - @last_dm = DirectMessage.where(send_user_id: follower.id, receive_user_id: current_user.id).or(DirectMessage.where(send_user_id: current_user.id, receive_user_id: follower.id)).order(created_at: :desc).first
+                  = link_to show_chatroom_path(send_user_id: follower.id) ,class:"text-decoration-none link-dark" do
+                    .hstack
+                      - if follower.avater_image.present?
+                        = image_tag follower.avater_image.representation(resize_to_fill: [50, 50]), class: "rounded-circle m-2 border"
+                      - else
+                        = image_tag "default_i.png", class: "rounded-circle m-2 border", size: '50x50'
+                      .vstack.m-2
+                        - if @last_dm.present?
+                          .hstack 
+                            .fw-bold
+                              = follower.name
+                            .text-muted.ms-3
+                              = l @last_dm.created_at
+                          .m-1.text-muted
+                            = @last_dm.content.truncate(20)
+                        - else 
+                          .fw-bold
+                            = follower.name
+                  .border-bottom
+
+        .h-100.mb-auto
+          .border-start[style="width: 520px;"]
+            - if @send_user.present?
+              .hstack
+                - if @send_user.avater_image.present?
+                  = image_tag @send_user.avater_image.representation(resize_to_fill: [30, 30]), class: "rounded-circle m-2 border"
+                - else
+                  = image_tag "default_i.png", class: "rounded-circle m-2 border", size: '30x30'
+                .fw-bold
+                  = @send_user.name
+              .overflow-auto[style="height: calc(80vh - 100px); "]
+
+                - @direct_messages.each do |direct_message|
+                  - if direct_message.send_user_id == @send_user.id 
+                    .m-1.ms-2.border.rounded-4.border-white.p-2.w-75.bg-light
+                      = direct_message.content
+                    .text-muted.ms-3.mb-4[style="font-size: 14px;"]
+                      = l direct_message.created_at
+                  - else
+                    .m-1.me-2.border.rounded-4.border-white.p-2.w-75.text-white.ms-auto[style="background-color: #1da1f2;"]
+                      = direct_message.content
+                    .text-muted.text-end.me-2.mb-4[style="font-size: 14px;"]
+                      = l direct_message.created_at
+              .m-2.mt-5
+                = form_with model: @direct_message ,url: post_message_path(send_user_id: params[:send_user_id]),local: true do |f|
+                  .position-relative
+                    = f.text_area :content, size: "30x3", class: "form-control border-0 bg-light", placeholder:'新しいメッセージを作成'
+                    = button_tag type: "submit", class: "btn btn-default position-absolute bottom-0 end-0" do
+                      i.bi.bi-send
