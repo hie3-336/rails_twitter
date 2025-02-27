@@ -13,6 +13,8 @@ class Like < ApplicationRecord
 
   private
   def create_notifications
-    Notification.create(notifiable: self, user: tweet.user)
+    if tweet.user != user
+      Notification.create(notifiable: self, user: tweet.user)
+    end
   end
 end
