@@ -15,48 +15,7 @@ div[style="height: 100vh; max-height: 1000px;"]
       .hstack
         .p-1.border-end
           .d-flex.flex-column.align-items-start.flex-shrink-0.p-3.bg-body-tertiary[style="width: 260px; height: calc(100vh - 70px); min-height: 650px;"]
-            ul.nav.nav-pills.navbar-nav.flex-column.gap-0.row-gap-3
-              li
-                .d-flex.nav-link.fs-4.align-items-center
-                  i.bi.bi-house.me-2
-                  |  ホーム
-              - if user_signed_in? 
-                li
-                  a.d-flex.nav-link.link-body-emphasis.fs-4.align-items-center[href="#"]
-                    i.bi.bi-bell.me-2
-                    |  通知
-                li
-                  = link_to direct_messages_path, class: "d-flex nav-link link-body-emphasis fs-4 align-items-center" do
-                    i.bi.bi-envelope.me-2
-                    |  メッセージ
-                li 
-                  = link_to bookmarks_path, class: "d-flex nav-link link-body-emphasis fs-4 align-items-center" do
-                    i.bi.bi-bookmark.me-2
-                    | ブックマーク
-                li 
-                  = link_to user_path(current_user.name, tab: 'tweet'),class: "d-flex nav-link link-body-emphasis fs-4 align-items-center" do
-                    i.bi.bi-person.me-2
-                    | プロフィール
-              li
-                a.d-flex.nav-link.link-body-emphasis.fs-4.align-items-center[href="#"]
-                  i.bi.bi-gear.me-2
-                  |  設定 
-            .dropdown.mt-auto.mb-3
-              - if user_signed_in?
-                a.d-flex.align-items-center.link-body-emphasis.text-decoration-none.dropdown-toggle[href="#" data-bs-toggle="dropdown" aria-expanded="false"]
-                  - if current_user.avater_image.present?
-                    = image_tag current_user.avater_image.representation(resize_to_fill: [50, 50]), class: "rounded-circle me-2 border"
-                  - else
-                    = image_tag "default_i.png", class: "rounded-circle me-2 border", size: '50x50'
-                  strong
-                  = current_user.name
-                ul.dropdown-menu.text-small.shadow
-                  li
-                    a.dropdown-item[href="#"]
-                      |  プロフィール
-              - else
-                .fs-5
-                  |  ゲスト
+            = render partial: 'layouts/menu'
 
         .h-100.border-end.mb-auto
           .border-bottom[style="width: 660px;"]    
