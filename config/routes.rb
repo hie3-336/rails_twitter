@@ -21,6 +21,8 @@ Rails.application.routes.draw do
 
   resources :bookmarks, only: [:index]
 
+  resources :notifications, only: [:index]
+
   resources :direct_messages, only: %i[index]
   get '/direct_messages/:send_user_id', to: 'direct_messages#show_chatroom', as: :show_chatroom
   post '/direct_messages/:send_user_id', to: 'direct_messages#create', as: :post_message
