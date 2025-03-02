@@ -12,11 +12,12 @@ class Comment < ApplicationRecord
   after_create_commit :create_notifications
 
   private
+
   def create_notifications
-    if tweet.user != user
-      notification = Notification.create(notifiable: self, user: tweet.user)
-      notification.save!
-      NotificationMailer.notice_mail(notification).deliver_now
-    end
+    return unless tweet.user != user
+
+    notification = Notification.create(notifiable: self, user: tweet.user)
+    notification.save!
+    NotificationMailer.notice_mail(notification).deliver_now
   end
 end

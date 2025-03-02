@@ -10,10 +10,10 @@ class Follower < ApplicationRecord
   after_create_commit :create_notifications
 
   private
+
   def create_notifications
     notification = Notification.create(notifiable: self, user: followed)
     notification.save!
     NotificationMailer.notice_mail(notification).deliver_now
   end
-
 end
