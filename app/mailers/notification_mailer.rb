@@ -1,8 +1,10 @@
 class NotificationMailer < ApplicationMailer
-  def notice
-    @greeting = "Hi!"
+  default from: ENV['EMAIL_USER']
 
-    mail to: "tomohiko336@gmail.com"
-    # NotificationMailer.notice.deliver_now
+  def notice_mail(notification)
+    @notification = notification
+    
+    mail(to: @notification.user.email, subject: 'Hietterからのお知らせ')
+    # NotificationMailer.notice_mail.deliver_now
   end
 end

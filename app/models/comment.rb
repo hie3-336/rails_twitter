@@ -14,7 +14,9 @@ class Comment < ApplicationRecord
   private
   def create_notifications
     if tweet.user != user
-      Notification.create(notifiable: self, user: tweet.user)
+      notification = Notification.create(notifiable: self, user: tweet.user)
+      notification.save!
+      NotificationMailer.notice_mail(notification).deliver_now
     end
   end
 end

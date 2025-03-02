@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+    <style>
+      table {
+        border: 2px solid #333;
+      }
+
+      th, td {
+        border: 1px solid #949494;
+        text-align: left;
+      }
+    </style>
+  </head>
+  <body>
+    <h2><%= @notification.user.name %>さん</h2>
+    <div>
+      <h4>Hietterからの通知です</h3>
+    </div>
+    <% case @notification.notifiable_type %>
+    <% when 'Like' then %>
+      <h4><%= @notification.notifiable.user.name%>さんから
+      いいね
+    <% when 'Retweet' then %>
+      <h4><%= @notification.notifiable.user.name%>さんから
+      リツイート
+    <% when 'Comment' then %>
+      <h4><%= @notification.notifiable.user.name%>さんから
+      コメント
+    <% when 'Follower' then %>
+      <h4><%= @notification.notifiable.follower.name%>さんから
+      フォロー
+    <% end %>
+    されました。</h4>
+
+    <% if @notification.notifiable_type.in?(['Like','Retweet','Comment']) %>
+      <h4>以下は、</h4>
+      <%= @notification.notifiable.user.name %>
+      <h4>さんからアクションのあった、あなたのツイートです。</h4>
+      <table>
+        <tbody>
+          <tr>
+            <th>ツイート内容</th>
+            <td><%= @notification.notifiable.tweet.content %></td>
+          </tr>
+        </tbody>
+      </table>
+    <% end %>
+  </body>
+</html>

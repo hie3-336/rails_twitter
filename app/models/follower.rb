@@ -11,7 +11,9 @@ class Follower < ApplicationRecord
 
   private
   def create_notifications
-    Notification.create(notifiable: self, user: followed)
+    notification = Notification.create(notifiable: self, user: followed)
+    notification.save!
+    NotificationMailer.notice_mail(notification).deliver_now
   end
 
 end

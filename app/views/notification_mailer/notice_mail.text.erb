@@ -1,0 +1,24 @@
+<%= @notification.user.name %>さん
+
+■■Hietterからの通知です■■
+
+<% case @notification.notifiable_type %>
+<% when 'Like' then %>
+  <%= @notification.notifiable.user.name %>さんから
+  いいね
+<% when 'Retweet' then %>
+  <%= @notification.notifiable.user.name %>さんから
+  リツイート
+<% when 'Comment' then %>
+  <%= @notification.notifiable.user.name %>さんから
+  コメント
+<% when 'Follower' then %>
+  <%= @notification.notifiable.follower.name %>さんから
+  フォロー
+<% end %>
+されました。
+
+<% if @notification.notifiable_type.in?(['Like','Retweet','Comment']) %>
+  以下は、<%= @notification.notifiable.user.name %>さんからアクションのあった、あなたのツイートです。
+  ツイート内容:<%= @notification.notifiable.tweet.content %>
+<% end %>
