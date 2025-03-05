@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Notifiable
   extend ActiveSupport::Concern
 
@@ -12,7 +14,7 @@ module Notifiable
 
   def create_notifications
     return if check_create_notification
-    
+
     notification = Notification.create(notifiable: self, user: notification_recipient)
     notification.save!
     NotificationMailer.notice_mail(notification).deliver_now

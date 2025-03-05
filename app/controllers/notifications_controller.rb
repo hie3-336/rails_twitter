@@ -5,7 +5,7 @@ class NotificationsController < ApplicationController
 
   def index
     @notifications = current_user.notifications.order(created_at: :desc).includes(notifiable: [:tweet, :follower, {
-      user: [avater_image_attachment: :blob]
-    }])
+                                                                                    user: [avater_image_attachment: :blob]
+                                                                                  }])
   end
 end
