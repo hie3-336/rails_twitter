@@ -1,19 +1,20 @@
 # frozen_string_literal: true
 
 class Follower < ApplicationRecord
+  include Notifiable
+  
   belongs_to :follower, class_name: 'User'
   belongs_to :followed, class_name: 'User'
 
-  # 通知モデルとのポリモーフィック
-  has_many :notifications, as: :notifiable, dependent: :destroy
-
-  after_create_commit :create_notifications
-
   private
 
-  def create_notifications
-    notification = Notification.create(notifiable: self, user: followed)
-    notification.save!
-    NotificationMailer.notice_mail(notification).deliver_now
+  # 自分自身へのアクションかどうかの判定(セルフフォローはできない為ここではnil)
+  def check_create_notification
+    nil
+  end
+
+  # 通知受信者の指定
+  def notification_recipient
+    followed
   end
 end

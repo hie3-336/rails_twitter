@@ -1,23 +1,21 @@
 # frozen_string_literal: true
 
 class Comment < ApplicationRecord
+  include Notifiable
   validates :content, length: { in: 1..140 }
 
   belongs_to :tweet, counter_cache: true
   belongs_to :user
 
-  # 通知モデルとのポリモーフィック
-  has_many :notifications, as: :notifiable, dependent: :destroy
-
-  after_create_commit :create_notifications
-
   private
 
-  def create_notifications
-    return unless tweet.user != user
+  # 自分自身へのアクションかどうかの判定
+  def check_create_notification
+    tweet.user == user
+  end
 
-    notification = Notification.create(notifiable: self, user: tweet.user)
-    notification.save!
-    NotificationMailer.notice_mail(notification).deliver_now
+  # 通知受信者の指定
+  def notification_recipient
+    tweet.user
   end
 end
