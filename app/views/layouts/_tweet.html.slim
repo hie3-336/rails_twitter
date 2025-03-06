@@ -38,7 +38,7 @@
         = tweet.user.name
       .ms-3.text-muted
         = render partial: 'layouts/time', locals: { model: tweet }
-    = tweet.tweet_text
+    = tweet.content
     - if tweet.image.present?
       = image_tag tweet.image.representation(resize_to_fill: [300, 200])
 .border-bottom

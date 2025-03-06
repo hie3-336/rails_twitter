@@ -7,7 +7,7 @@
   = link_to tweet_path(id: tweet.id), class:"vstack text-decoration-none link-dark" do
     .fw-bold
       = tweet.user.name
-    = tweet.tweet_text
+    = tweet.content
     - if tweet.image.present?
       = image_tag tweet.image.representation(resize_to_fill: [300, 200])
 .border-bottom

@@ -34,7 +34,7 @@ end
 CSV.foreach('db/seeds/tweet_seed.csv', headers: true) do |row|
   tweet = Tweet.create(
     user_id: row['user_id'],
-    tweet_text: row['tweet_text']
+    content: row['content']
   )
   tweet.image.attach(io: File.open("db/testimage/#{row['filename']}.jpg"), filename: "#{row['filename']}.png") if row['filename'].present?
 
@@ -76,7 +76,7 @@ CSV.foreach('db/seeds/comment_seed.csv', headers: true) do |row|
   comment = Comment.create(
     tweet_id: row['tweet_id'],
     user_id: row['user_id'],
-    comment_content: row['comment_content']
+    content: row['content']
   )
 
   comment.save!
@@ -105,6 +105,6 @@ end
 # user = User.create(name: 'テストユーザー', email: 'test@testtest.com', password: 'password', phone_number: '08000000000', birthday: '1993-11-10')
 # user.save!
 
-# tweet = Tweet.create(user_id: 1, tweet_text: 'テストツイートです！')
+# tweet = Tweet.create(user_id: 1, content: 'テストツイートです！')
 # tweet.image.attach(io: File.open('db/testimage/test.png'), filename: 'test.png')
 # tweet.save!

@@ -34,10 +34,10 @@ ja:
         profile_image: プロフィール画像
         avater_image: アバター画像
       tweet:
-        tweet_text: ツイート
+        content: ツイート
         image: 画像
       comment:
-        comment_content: コメント
+        content: コメント
       direct_message:
         content: メッセージ
 
