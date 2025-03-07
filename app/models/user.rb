@@ -33,6 +33,8 @@ class User < ApplicationRecord
   has_many :send_messages, class_name: 'DirectMessage', foreign_key: 'send_user_id', dependent: :destroy, inverse_of: 'send_user'
   has_many :receive_messages, class_name: 'DirectMessage', foreign_key: 'receive_user_id', dependent: :destroy, inverse_of: 'receive_user'
 
+  has_many :notifications, dependent: :destroy
+
   # プロフィール画像
   has_one_attached :avater_image
   has_one_attached :profile_image

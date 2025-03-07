@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2025_02_11_100043) do
+ActiveRecord::Schema[7.0].define(version: 2025_02_24_095232) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -55,7 +55,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_02_11_100043) do
   create_table "comments", force: :cascade do |t|
     t.bigint "tweet_id", null: false
     t.bigint "user_id", null: false
-    t.string "comment_content"
+    t.string "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["tweet_id"], name: "index_comments_on_tweet_id"
@@ -86,6 +86,16 @@ ActiveRecord::Schema[7.0].define(version: 2025_02_11_100043) do
     t.index ["tweet_id"], name: "index_likes_on_tweet_id"
     t.index ["user_id", "tweet_id"], name: "index_likes_on_user_id_and_tweet_id", unique: true
     t.index ["user_id"], name: "index_likes_on_user_id"
+  end
+
+  create_table "notifications", force: :cascade do |t|
+    t.string "notifiable_type", null: false
+    t.bigint "notifiable_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["notifiable_type", "notifiable_id"], name: "index_notifications_on_notifiable"
+    t.index ["user_id"], name: "index_notifications_on_user_id"
   end
 
   create_table "retweets", force: :cascade do |t|
@@ -119,7 +129,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_02_11_100043) do
 
   create_table "tweets", force: :cascade do |t|
     t.integer "user_id"
-    t.string "tweet_text"
+    t.string "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "likes_count", default: 0
@@ -171,6 +181,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_02_11_100043) do
   add_foreign_key "comments", "users"
   add_foreign_key "likes", "tweets"
   add_foreign_key "likes", "users"
+  add_foreign_key "notifications", "users"
   add_foreign_key "retweets", "tweets"
   add_foreign_key "retweets", "users"
   add_foreign_key "timelines", "retweets"

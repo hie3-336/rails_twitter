@@ -1,0 +1,93 @@
+div[style="height: 100vh; max-height: 1000px;"]
+  .d-flex.justify-content-center.w-100
+    main.d-flex.flex-nowrap.flex-column.h-100
+      header.d-flex.flex-wrap.align-items-center.justify-content-center.justify-content-md-between.py-3.border-bottom.w-100
+        = link_to root_path(tab: 'recommend'), class: "d-flex nav-link fs-3 align-items-center" do
+          i.bi.bi-twitter.mx-3
+          | Hietter
+        .col-md-3.mb-2.mb-md-0
+        .col-md-3.text-end
+          - if user_signed_in?
+            = link_to "ログアウト", destroy_user_session_path, class: "btn btn-outline-primary me-2" , data: { turbo_method: :delete }
+          - else
+            = link_to "ログイン", new_user_session_path, class: "btn btn-outline-primary me-2"
+            = link_to "新規登録", new_user_registration_path, class: "btn btn-primary"
+      .hstack
+        .p-1.border-end
+          .d-flex.flex-column.align-items-start.flex-shrink-0.p-3.bg-body-tertiary[style="width: 260px; height: calc(100vh - 70px); min-height: 650px;"]
+            = render partial: 'layouts/menu'
+
+        .h-100.border-end.mb-auto
+          .border-bottom[style="width: 660px;"]    
+            .overflow-auto[style="height: calc(100vh - 100px); "]
+              .tab-content
+                - @notifications.each do |notification|
+                  .border-bottom
+                    .ms-4.mb-3.mt-1.me-3
+                      .hstack
+                        - case notification.notifiable_type
+                        - when 'Like' then
+                          .fs-3.ms-1.mt-1.mb-auto
+                            i.bi.bi-heart-fill.text-danger
+                          .vstack
+                            = link_to user_path(notification.notifiable.user.name, tab: 'tweet') ,class: "ms-2 mt-2" do
+                              - if notification.notifiable.user.avater_image.present?
+                                = image_tag notification.notifiable.user.avater_image.representation(resize_to_fill: [30, 30]), class: "rounded-circle me-2 border"
+                              - else
+                                = image_tag "default_i.png", class: "rounded-circle me-2 border", size: '30x30'
+                            .ms-2.mt-2
+                              .hstack
+                                = link_to user_path(notification.notifiable.user.name, tab: 'tweet') ,class: "fw-bold text-decoration-none link-dark" do
+                                  = notification.notifiable.user.name
+                                | さんがあなたのツイートをいいねしました
+                            = link_to tweet_path(id: notification.notifiable.tweet.id), class:"ms-2 mt-2 text-muted text-decoration-none link-dark" do
+                              = notification.notifiable.tweet.content
+                        - when 'Retweet' then
+                          .fs-3.ms-1.mt-1.mb-auto
+                            i.bi.bi-arrow-repeat.[style=" font-weight:bold; color: #228b22;"]
+                          .vstack
+                            = link_to user_path(notification.notifiable.user.name, tab: 'tweet') ,class: "ms-2 mt-2" do
+                              - if notification.notifiable.user.avater_image.present?
+                                = image_tag notification.notifiable.user.avater_image.representation(resize_to_fill: [30, 30]), class: "rounded-circle me-2 border"
+                              - else
+                                = image_tag "default_i.png", class: "rounded-circle me-2 border", size: '30x30'
+                            .ms-2.mt-2
+                              .hstack
+                                = link_to user_path(notification.notifiable.user.name, tab: 'tweet') ,class: "fw-bold text-decoration-none link-dark" do
+                                  = notification.notifiable.user.name
+                                | さんがあなたのツイートをリツイートしました
+                            = link_to tweet_path(id: notification.notifiable.tweet.id), class:"ms-2 mt-2 text-muted text-decoration-none link-dark" do
+                              = notification.notifiable.tweet.content
+                        - when 'Comment' then
+                          .fs-3.ms-1.mt-1.mb-auto
+                            i.bi.bi-chat-fill.[style=" font-weight:bold; color: #1da1f2;"]
+                          .vstack
+                            = link_to user_path(notification.notifiable.user.name, tab: 'tweet') ,class: "ms-2 mt-2" do
+                              - if notification.notifiable.user.avater_image.present?
+                                = image_tag notification.notifiable.user.avater_image.representation(resize_to_fill: [30, 30]), class: "rounded-circle me-2 border"
+                              - else
+                                = image_tag "default_i.png", class: "rounded-circle me-2 border", size: '30x30'
+                            .ms-2.mt-2
+                              .hstack
+                                = link_to user_path(notification.notifiable.user.name, tab: 'tweet') ,class: "fw-bold text-decoration-none link-dark" do
+                                  = notification.notifiable.user.name
+                                | さんがあなたのツイートにコメントしました
+                            = link_to tweet_path(id: notification.notifiable.tweet.id), class:"ms-2 mt-2 text-muted text-decoration-none link-dark" do
+                              = notification.notifiable.tweet.content
+                        - when 'Follower' then
+                          .fs-2.mb-auto
+                            i.bi.bi-person-fill.[style=" font-weight:bold; color: #1da1f2;"]
+                          .vstack
+                            = link_to user_path(notification.notifiable.follower.name, tab: 'tweet') ,class: "ms-2 mt-2" do
+                              - if notification.notifiable.follower.avater_image.present?
+                                = image_tag notification.notifiable.follower.avater_image.representation(resize_to_fill: [30, 30]), class: "rounded-circle me-2 border"
+                              - else
+                                = image_tag "default_i.png", class: "rounded-circle me-2 border", size: '30x30'
+                            .ms-2.mt-2
+                              .hstack
+                                = link_to user_path(notification.notifiable.follower.name, tab: 'tweet') ,class: "fw-bold text-decoration-none link-dark" do
+                                  = notification.notifiable.follower.name
+                                | さんにフォローされました
+
+        .h-100
+          .border-start[style="width: 260px;"]
