@@ -1,28 +1,28 @@
 ul.nav.nav-pills.navbar-nav.flex-column.gap-0.row-gap-3
   li
     = link_to root_path(tab: 'recommend'), class: "d-flex nav-link link-body-emphasis fs-4 align-items-center" do
-      i.bi.bi-house.me-2
+      i.bi.bi-house.me-2.p-1
       |  ホーム
   - if user_signed_in? 
-    li
+    li.mt-2
       = link_to notifications_path, class: "d-flex nav-link link-body-emphasis fs-4 align-items-center" do
-        i.bi.bi-bell.me-2
+        i.bi.bi-bell.me-2.p-1
         |  通知
-    li
+    li.mt-2
       = link_to direct_messages_path, class: "d-flex nav-link link-body-emphasis fs-4 align-items-center" do
-        i.bi.bi-envelope.me-2
+        i.bi.bi-envelope.me-2.p-1
         |  メッセージ 
-    li 
+    li.mt-2
       = link_to bookmarks_path, class: "d-flex nav-link link-body-emphasis fs-4 align-items-center" do
-        i.bi.bi-bookmark.me-2
+        i.bi.bi-bookmark.me-2.p-1
         | ブックマーク
-    li 
+    li.mt-2
       = link_to user_path(current_user.name, tab: 'tweet'),class: "d-flex nav-link link-body-emphasis fs-4 align-items-center" do
-        i.bi.bi-person.me-2
+        i.bi.bi-person.me-2.p-1
         | プロフィール
-  li
+  li.mt-2
     a.d-flex.nav-link.link-body-emphasis.fs-4.align-items-center[href="#"]
-      i.bi.bi-gear.me-2
+      i.bi.bi-gear.me-2.p-2
       |  設定
 .dropdown.mt-auto.mb-3
   - if user_signed_in?
