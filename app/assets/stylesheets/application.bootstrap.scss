@@ -1,13 +1,33 @@
 @import 'bootstrap/scss/bootstrap';
 @import 'bootstrap-icons/font/bootstrap-icons';
 
+$bg_color: #f3f3f3;
 
 .bi-twitter{
- color: #1da1f2;
+  color: #1da1f2;
 }
 
 .btn-primary{
- background-color: #1da1f2;
+  background-color: #1da1f2;
 }
 
 .dropdown-toggle::after { display: none; }
+
+li:has(> .active) {
+  text-decoration: underline;
+  text-underline-offset: 12px;
+  text-decoration-thickness: 4px;
+}
+
+li.nav-item:hover {
+  background-color: $bg_color;
+}
+
+.tweet:hover {
+  background-color: $bg_color;
+}
+
+.d-flex.nav-link:hover {
+  background-color: $bg_color;
+  border-radius: 30px;
+}
