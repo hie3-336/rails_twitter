@@ -89,6 +89,9 @@ group :development, :test do
   gem 'debug', platforms: %i[mri mingw x64_mingw]
   gem 'factory_bot_rails'
   gem 'rspec-rails'
+
+   # N+1検知
+  gem 'bullet'
 end
 
 group :development do
@@ -104,8 +107,7 @@ group :development do
   # メールテスト用
   gem 'letter_opener_web'
 
-  # N+1検知
-  gem 'bullet'
+
 
   # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
   # gem "rack-mini-profiler"
