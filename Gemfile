@@ -91,7 +91,7 @@ group :development, :test do
   gem 'rspec-rails'
 
    # N+1検知
-  gem 'bullet'
+  # gem 'bullet'
 end
 
 group :development do
