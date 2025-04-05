@@ -31,7 +31,7 @@ RSpec.configure do |config|
   end
   # テストのログをわかりやすくする用
   config.expect_with :rspec do |c|
-    c.max_formatted_output_length = 1000000
+    c.max_formatted_output_length = 1_000_000
   end
 
   # rspec-mocks config goes here. You can use an alternate test double

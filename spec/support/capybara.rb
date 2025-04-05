@@ -1,8 +1,10 @@
- # selenium webdriver対応
+# frozen_string_literal: true
+
+# selenium webdriver対応
 require 'capybara/rspec'
 require 'selenium-webdriver'
 
-Capybara.register_driver :selenium_chrome_headless do |app|
+Capybara.register_driver :selenium_chrome_headless do |_app|
   options = ::Selenium::WebDriver::Chrome::Options.new
 
   options.add_argument('--headless')
