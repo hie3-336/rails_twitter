@@ -4,6 +4,8 @@ require 'rails_helper'
 
 RSpec.describe 'Tweets', type: :request do
   describe 'POST /tweets' do
+
+    # ツイート投稿(正常系)
     context "ユーザーがサインインしている状況で、正しい内容のツイートの時" do
       before do
         user = FactoryBot.create(:user)
@@ -17,6 +19,7 @@ RSpec.describe 'Tweets', type: :request do
       end
     end
 
+    # ツイート投稿(異常系)
     context "ユーザーがサインインしている状況で、141文字のツイートを投稿した時" do
       before do
         user = FactoryBot.create(:user)

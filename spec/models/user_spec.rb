@@ -2,6 +2,7 @@
 
 require 'rails_helper'
 
+# モデルのバリデーションテスト
 RSpec.describe User, type: :model do
   context "ファクトリで作成したデータを使用する時" do
     it "有効なユーザーであること" do

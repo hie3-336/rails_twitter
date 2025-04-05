@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe "Tweets", type: :system do
   let(:user) { FactoryBot.create(:user) }
 
+  # ツイート投稿(正常系)
   scenario "正常にツイートを投稿する" do
     visit new_user_session_path
     fill_in "メール", with: user.email
@@ -15,6 +16,7 @@ RSpec.describe "Tweets", type: :system do
     expect(page).to have_content "ツイートを投稿しました"
   end
 
+  # ツイート投稿(異常系)
   scenario "ツイートが空白のため投稿に失敗する" do
     visit new_user_session_path
     fill_in "メール", with: user.email

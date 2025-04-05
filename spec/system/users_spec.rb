@@ -2,7 +2,8 @@ require 'rails_helper'
 
 RSpec.describe "Users", type: :system do
   let(:user) { FactoryBot.create(:user) }
-  
+
+  # ログイン(正常系)
   scenario "正常にログインする" do
     visit new_user_session_path
     fill_in "メール", with: user.email
@@ -11,6 +12,7 @@ RSpec.describe "Users", type: :system do
     expect(page).to have_content "ログインしました"
   end
 
+  # ログイン(異常系)
   scenario "パスワードが間違っているためログインに失敗する" do
     visit new_user_session_path
     fill_in "メール", with: user.email
@@ -19,6 +21,7 @@ RSpec.describe "Users", type: :system do
     expect(page).to have_content "Eメールまたはパスワードが違います。"
   end
 
+  # サインアップ(正常系)
   scenario "正常にサインアップする" do
     visit new_user_registration_path
     fill_in "名前", with: "newuser"
@@ -31,6 +34,7 @@ RSpec.describe "Users", type: :system do
     expect(page).to have_content "本人確認用のメールを送信しました。"
   end
 
+  # サインアップ(異常系)
   scenario "メールアドレスが重複しているためサインアップに失敗する" do
     visit new_user_registration_path
     fill_in "名前", with: "newuser"
