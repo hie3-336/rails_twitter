@@ -31,6 +31,10 @@ begin
 rescue ActiveRecord::PendingMigrationError => e
   abort e.to_s.strip
 end
+
+# selenium webdriver対応
+Dir[Rails.root.join('spec', 'support', '**', '*.rb')].sort.each { |f| require f }
+
 RSpec.configure do |config|
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = Rails.root.join('spec/fixtures')
@@ -63,7 +67,16 @@ RSpec.configure do |config|
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
 
-  # deviseのテストよう設定
+  # deviseのテスト用設定
   config.include Devise::Test::ControllerHelpers, type: :controller
   config.include Devise::Test::IntegrationHelpers, type: :request
+
+  # selenium webdriver対応
+  config.before(:each, type: :system) do
+    driven_by :rack_test
+  end
+  config.before(:each, type: :system, js: true) do
+    driven_by :selenium_chrome_headless
+  end
+  
 end
