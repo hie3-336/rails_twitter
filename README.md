@@ -20,7 +20,7 @@ https://floating-springs-01753-38230b9c7601.herokuapp.com/
 - メール配信付きの通知機能
 
 ## ER図
-![Image](https://github.com/user-attachments/assets/4ca7893a-075c-4a39-9dba-195f25cd0b98)
+![Image](https://github.com/user-attachments/assets/dfda7d80-065c-42bd-84d9-a9db00426a22)
 
 ## 関連技術記事
 - [通知機能にポリモーフィック関連を導入](https://qiita.com/hie3/items/da83f5a9856f1d58d137)
