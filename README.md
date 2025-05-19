@@ -4,7 +4,7 @@ Railsにより作成したXを模倣したwebアプリです。
 
 # 本番環境
 
-https://floating-springs-01753-38230b9c7601.herokuapp.com/
+https://thawing-ravine-49916-043d1e4fb62b.herokuapp.com/?tab=recommend
 
 ## 実装の特徴
 - Rails 7.0.6 で開発 
