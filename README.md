@@ -6,7 +6,7 @@ Railsにより作成したXを模倣したwebアプリです。
 
 https://thawing-ravine-49916-043d1e4fb62b.herokuapp.com/?tab=recommend
 
-- メールアドレス：testmail1@test.com　　パスワード:password  こちらでデモアカウントにログインできます。
+- メールアドレス：testmail1@test.com　パスワード:password  　こちらでデモアカウントにログインできます。
 ## デモ動画
 https://github.com/user-attachments/assets/57bb4a01-47f3-4dc1-969a-331fe8518c4a
 
