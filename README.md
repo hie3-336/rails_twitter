@@ -6,6 +6,9 @@ Railsにより作成したXを模倣したwebアプリです。
 
 https://thawing-ravine-49916-043d1e4fb62b.herokuapp.com/?tab=recommend
 
+## デモ動画
+https://github.com/user-attachments/assets/57bb4a01-47f3-4dc1-969a-331fe8518c4a
+
 ## 実装の特徴
 - Rails 7.0.6 で開発 
 - 画像保存はActiveStorageを使用 保存先はAWS S3 
