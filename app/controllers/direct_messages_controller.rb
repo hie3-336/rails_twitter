@@ -13,7 +13,12 @@ class DirectMessagesController < ApplicationController
     if @direct_message.save
       redirect_to request.referer
     else
-      redirect_to request.referer, alert: @direct_message.errors.full_messages
+      # エラー時は入力データを保持してチャットルームを再表示
+      @send_user = User.find_by(id: params[:send_user_id])
+      @direct_messages = DirectMessage.where(send_user_id: @send_user.id, receive_user_id: current_user.id)
+                                      .or(DirectMessage.where(send_user_id: current_user.id, receive_user_id: @send_user.id))
+      flash.now[:alert] = @direct_message.errors.full_messages
+      render :index
     end
   end
 

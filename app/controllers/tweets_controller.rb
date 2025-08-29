@@ -18,7 +18,11 @@ class TweetsController < ApplicationController
       timeline.save!
       redirect_to root_path(tab: 'recommend'), notice: 'ツイートを投稿しました！'
     else
-      redirect_to root_path(tab: 'recommend'), alert: @tweet.errors.full_messages
+      # エラー時は入力データを保持してindexページを再表示
+      @timelines = Timeline.all.page(params[:page]).per(5).order(created_at: :desc).includes(:retweet)
+      @following_timelines = @timelines.where(user_id: current_user.followings.pluck(:id)).per(5).order(created_at: :desc) if current_user.present?
+      flash.now[:alert] = @tweet.errors.full_messages
+      render :index
     end
   end
 
@@ -36,7 +40,10 @@ class TweetsController < ApplicationController
     if @comment.save
       redirect_to tweet_path(id: params[:id]), notice: 'コメントを投稿しました！'
     else
-      redirect_to tweet_path(id: params[:id]), alert: @comment.errors.full_messages
+      # エラー時は入力データを保持してshowページを再表示
+      @comments = @tweet.comments.includes(user: [avater_image_attachment: :blob])
+      flash.now[:alert] = @comment.errors.full_messages
+      render :show
     end
   end
 
