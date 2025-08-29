@@ -29,12 +29,19 @@ class UsersController < ApplicationController
   end
 
   def follow_user
+    # 自分自身をフォローすることを防ぐ
+    return redirect_to request.referer, alert: '自分自身をフォローすることはできません' if current_user.id == params[:user_id].to_i
+
     follower = Follower.find_by(follower_id: current_user.id, followed_id: params[:user_id])
     if follower.present?
       redirect_to request.referer if follower.destroy
     else
       follower = Follower.create(follower_id: current_user.id, followed_id: params[:user_id])
-      redirect_to request.referer if follower.save
+      if follower.save
+        redirect_to request.referer
+      else
+        redirect_to request.referer, alert: follower.errors.full_messages.join(', ')
+      end
     end
   end
 
