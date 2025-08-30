@@ -3,10 +3,7 @@
 class TweetsController < ApplicationController
   def index
     @tweet = Tweet.new
-    @timelines = Timeline.all.page(params[:page]).per(5).order(created_at: :desc).includes(:retweet)
-    return if current_user.blank?
-
-    @following_timelines = @timelines.where(user_id: current_user.followings.pluck(:id)).per(5).order(created_at: :desc)
+    load_timelines
   end
 
   def create
@@ -19,8 +16,7 @@ class TweetsController < ApplicationController
       redirect_to root_path(tab: 'recommend'), notice: 'ツイートを投稿しました！'
     else
       # エラー時は入力データを保持してindexページを再表示
-      @timelines = Timeline.all.page(params[:page]).per(5).order(created_at: :desc).includes(:retweet)
-      @following_timelines = @timelines.where(user_id: current_user.followings.pluck(:id)).per(5).order(created_at: :desc) if current_user.present?
+      load_timelines
       flash.now[:alert] = @tweet.errors.full_messages
       render :index
     end
@@ -82,6 +78,17 @@ class TweetsController < ApplicationController
   end
 
   private
+
+  def load_timelines
+    @timelines = Timeline.all.page(params[:page]).per(5).order(created_at: :desc).includes(:retweet)
+    return if current_user.blank?
+
+    # N+1クエリを解決: followingsとjoinsして直接絞り込み
+    @following_timelines = @timelines
+                           .joins('INNER JOIN followers ON timelines.user_id = followers.followed_id')
+                           .where(followers: { follower_id: current_user.id })
+                           .per(5).order(created_at: :desc)
+  end
 
   def tweet_params
     params.require(:tweet).permit(:content, :image)
